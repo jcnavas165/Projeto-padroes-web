@@ -17,8 +17,8 @@ nav {
 nav ul {
     list-style: none;
     display: flex;
-    justify-content: center; /* centraliza tudo */
-    gap: 15px; /* espaço entre caixas */
+    justify-content: center; 
+    gap: 15px; 
 }
 
 nav li {
@@ -52,7 +52,7 @@ nav a:hover {
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* espaço entre cards */
+    gap: 20px; 
 }
 
 .item {
