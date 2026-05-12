@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+    <rect width="800" height="450" fill="transparent"/>
+
+    <g opacity="0.7">
+        <!-- PORTUGUÊS -->
+        <text x="50" y="80" font-family="Segoe Print, Comic Sans MS, cursive" font-size="38" font-weight="bold" fill="#F6D98B" transform="rotate(-3 50 80)">Farmar</text>
+        <text x="650" y="60" font-family="Segoe Print, Comic Sans MS, cursive" font-size="28" fill="#F6D98B" transform="rotate(5 650 60)">Moggar</text>
+        <text x="100" y="400" font-family="Segoe Print, Comic Sans MS, cursive" font-size="24" fill="#F6D98B">Cringe</text>
+
+        <!-- INGLÊS -->
+        <text x="450" y="70" font-family="Brush Script MT, cursive" font-size="35" fill="#FFFFFF" transform="rotate(4 450 70)">Based</text>
+        <text x="40" y="220" font-family="Segoe Print, Comic Sans MS, cursive" font-size="32" fill="#FFFFFF" transform="rotate(2 40 220)">Noobie</text>
+
+        <!-- ESPANHOL -->
+        <text x="480" y="250" font-family="Segoe Print, Comic Sans MS, cursive" font-size="30" fill="#F6D98B" transform="rotate(-5 480 250)">Quitar</text>
+        <text x="80" y="340" font-family="Brush Script MT, cursive" font-size="34" fill="#FFFFFF" transform="rotate(-4 80 340)">Newba</text>
+
+        <!-- ITALIANO -->
+        <text x="620" y="160" font-family="Segoe Print, Comic Sans MS, cursive" font-size="28" fill="#FFFFFF" transform="rotate(-8 620 160)">Smurfar</text>
+        <text x="350" y="150" font-family="Brush Script MT, cursive" font-size="26" fill="#F6D98B" transform="rotate(6 350 150)">Tankar</text>
+
+        <!-- FRANCÊS -->
+        <text x="580" y="380" font-family="Brush Script MT, cursive" font-size="32" fill="#F6D98B" transform="rotate(3 580 380)">Rushar</text>
+        <text x="280" y="50" font-family="Segoe Print, Comic Sans MS, cursive" font-size="22" fill="#FFFFFF">Safe</text>
+
+        <!-- ALEMÃO -->
+        <text x="380" y="410" font-family="Segoe Print, Comic Sans MS, cursive" font-size="28" fill="#FFFFFF" transform="rotate(-2 380 410)">Floodar</text>
+        <text x="700" y="280" font-family="Segoe Print, Comic Sans MS, cursive" font-size="22" fill="#F6D98B">Flopar</text>
+
+        <!-- ORIENTAIS (Japonês, Chinês, Coreano) -->
+        <text x="40" y="40" font-family="sans-serif" font-size="22" fill="#F6D98B">Shippar</text>
+        <text x="220" y="90" font-family="sans-serif" font-size="26" fill="#FFFFFF">Coringar</text>
+        <text x="550" y="310" font-family="sans-serif" font-size="24" fill="#FFFFFF">Delulu</text>
+
+        <!-- OUTROS -->
+        <text x="20" y="280" font-family="serif" font-size="26" fill="#F6D98B">Crush</text>
+        <text x="700" y="420" font-family="sans-serif" font-size="28" fill="#F6D98B">Hitar</text>
+        <text x="300" y="300" font-family="Brush Script MT, cursive" font-size="26" fill="#FFFFFF" transform="rotate(-10 300 300)">Stalkear</text>
+
+        <!-- DECORAÇÕES (Pontos e Estrelas para preencher vazios) -->
+        <circle cx="400" cy="200" r="3" fill="#F6D98B"/>
+        <circle cx="420" cy="200" r="3" fill="#F6D98B"/>
+        <circle cx="440" cy="200" r="3" fill="#F6D98B"/>
+    </g>
+</svg>
