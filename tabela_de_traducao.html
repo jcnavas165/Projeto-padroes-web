@@ -4,95 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela de Tradução</title>
+    <title>Dicionário de Gírias</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dicionario.css">
+
+    <script src="dicionario.js" defer></script>
 </head>
 
 <body>
 
     <header>
-
         <nav>
-
-            <a href="pagina_inicial.html">
-                PÁGINA INICIAL
-            </a>
-
-            <a href="contextualizacao.html">
-                CONTEXTUALIZAÇÃO
-            </a>
-
-            <a href="linha_do_tempo.html">
-                LINHA DO TEMPO
-            </a>
-
-            <a href="quiz_de_vocabulario.html">
-                QUIZ DE VOCABULÁRIO
-            </a>
-
-            <a href="tabela_de_traducao.html">
-                TABELA DE TRADUÇÃO
-            </a>
-
-            <a href="impacto_no_vocabulario.html">
-                IMPACTO NO VOCABULÁRIO
-            </a>
-
-            <a href="sobre.html">
-                SOBRE
-            </a>
-
+            <a href="pagina_inicial.html">PÁGINA INICIAL</a>
+            <a href="contextualizacao.html">CONTEXTUALIZAÇÃO</a>
+            <a href="linha_do_tempo.html">LINHA DO TEMPO</a>
+            <a href="quiz_de_vocabulario.html">QUIZ DE VOCABULÁRIO</a>
+            <a href="tabela_de_traducao.html">DICIONÁRIO DE GÍRIAS</a>
+            <a href="impacto_no_vocabulario.html">IMPACTO NO VOCABULÁRIO</a>
+            <a href="sobre.html">SOBRE</a>
         </nav>
-
     </header>
 
     <section class="hero">
-        <h1>Tabela de Tradução</h1>
+        <h1>Dicionário de Gírias</h1>
     </section>
 
-    <main class="page-container">
+    <main class="page-container dictionary-page">
 
-        <div class="card">
-            <h2>Exemplos de vocabulário</h2>
+        <section class="dictionary-intro">
+            <h2>Dicionário de Gírias Globalizadas</h2>
 
             <p>
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
-
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
-
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
-
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
-
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
+                Este dicionário reúne gírias, expressões e palavras vindas principalmente do inglês e da cultura digital.
+                Muitas foram incorporadas diretamente ao português brasileiro; outras foram “abrasileiradas”, criando
+                formas como <strong>flopar</strong>, <strong>stalkear</strong>, <strong>shippar</strong>,
+                <strong>tankar</strong>, <strong>farmar</strong> e <strong>moggar</strong>.
             </p>
-        </div>
+        </section>
+
+        <section class="dictionary-tools" aria-label="Ferramentas do dicionário">
+            <div class="search-box">
+                <label for="dictionarySearch">Buscar no dicionário</label>
+                <input
+                    type="search"
+                    id="dictionarySearch"
+                    placeholder="Digite uma gíria, tradução ou significado..."
+                    autocomplete="off">
+            </div>
+
+            <div class="dictionary-stats">
+                <span id="totalTerms">Carregando termos...</span>
+                <span id="currentRange">Página 1</span>
+            </div>
+        </section>
+
+        <section class="book-stage" aria-label="Livro de gírias">
+
+            <button type="button" class="book-arrow book-arrow-left" id="prevPage" aria-label="Página anterior">
+                ‹
+            </button>
+
+            <div class="book" id="dictionaryBook">
+
+                <div class="book-cover book-cover-left">
+                    <span>Dicionário</span>
+                </div>
+
+                <div class="book-spine"></div>
+
+                <article class="book-page left-page">
+                    <header class="page-header">
+                        <span class="page-kicker">Vocabulário</span>
+                        <h3 id="leftPageTitle">Gírias</h3>
+                    </header>
+
+                    <div class="page-content" id="leftPageContent">
+                        <!-- Conteúdo criado pelo JS -->
+                    </div>
+
+                    <footer class="page-footer">
+                        <span id="leftPageNumber">1</span>
+                    </footer>
+                </article>
+
+                <article class="book-page right-page">
+                    <header class="page-header">
+                        <span class="page-kicker">Tradução</span>
+                        <h3 id="rightPageTitle">Significados</h3>
+                    </header>
+
+                    <div class="page-content" id="rightPageContent">
+                        <!-- Conteúdo criado pelo JS -->
+                    </div>
+
+                    <footer class="page-footer">
+                        <span id="rightPageNumber">2</span>
+                    </footer>
+                </article>
+
+                <div class="book-cover book-cover-right">
+                    <span>Gírias</span>
+                </div>
+
+            </div>
+
+            <button type="button" class="book-arrow book-arrow-right" id="nextPage" aria-label="Próxima página">
+                ›
+            </button>
+
+        </section>
+
+        <section class="book-controls" aria-label="Controles do livro">
+            <button type="button" id="firstPage">Primeira página</button>
+            <button type="button" id="prevPageBottom">Página anterior</button>
+
+            <div class="page-indicator">
+                <span id="pageIndicator">Página 1 de 1</span>
+            </div>
+
+            <button type="button" id="nextPageBottom">Próxima página</button>
+            <button type="button" id="lastPage">Última página</button>
+        </section>
+
+        <section class="dictionary-note">
+            <h2>Como ler este dicionário?</h2>
+
+            <p>
+                Cada página mostra a gíria original e seu significado em português. Quando uma palavra tem forma
+                abrasileirada, ela aparece naturalmente como verbo ou expressão usada no Brasil, como
+                <strong>flopar</strong>, <strong>ghostear</strong>, <strong>stalkear</strong>,
+                <strong>trollar</strong> e <strong>viralizar</strong>.
+            </p>
+        </section>
 
     </main>
 
