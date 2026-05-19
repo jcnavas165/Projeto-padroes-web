@@ -1,0 +1,92 @@
+/* ── Canvas ──────────────────────────────────────────────────────────────── */
+#wordCloudCanvas {
+    width: 100%;
+    max-width: 860px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #fffdf6;
+}
+
+/* ── Input row ───────────────────────────────────────────────────────────── */
+.ctx-wordcloud-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* ── Input ───────────────────────────────────────────────────────────────── */
+.ctx-wordcloud-input {
+    flex: 1;
+    padding: 11px 16px;
+    border: 2px solid rgba(31, 63, 43, 0.22);
+    border-radius: 999px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 15px;
+    color: #2B2B2B;
+    background: #fff;
+    outline: none;
+}
+
+.ctx-wordcloud-input:focus {
+    border-color: #E9B949;
+    box-shadow: 0 0 0 4px rgba(233, 185, 73, 0.22);
+}
+
+/* ── Botão ───────────────────────────────────────────────────────────────── */
+.ctx-wordcloud-btn {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1F3F2B;
+    background: #E9B949;
+    box-shadow: 0 4px 12px rgba(31, 63, 43, 0.18);
+    white-space: nowrap;
+    transition: background 0.18s;
+}
+
+.ctx-wordcloud-btn:hover {
+    background: #F6D98B;
+}
+
+/* ── Container de tags ───────────────────────────────────────────────────── */
+.ctx-user-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+    min-height: 24px;
+}
+
+/* ── Tag individual ──────────────────────────────────────────────────────── */
+.ctx-user-tags span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: #DDEBDD;
+    color: #1F3F2B;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+/* ── Botão de remoção da tag ─────────────────────────────────────────────── */
+.ctx-user-tags span button {
+    border: none;
+    background: rgba(31, 63, 43, 0.18);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+    color: #1F3F2B;
+    padding: 0;
+}
