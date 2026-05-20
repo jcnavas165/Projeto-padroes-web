@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linha do Tempo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/linha_do_tempo.css">
+
+    <script src="../js/linha_do_tempo.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="pagina_inicial.html">PÁGINA INICIAL</a>
+            <a href="contextualizacao.html">CONTEXTUALIZAÇÃO</a>
+            <a href="linha_do_tempo.html">LINHA DO TEMPO</a>
+            <a href="quiz_de_vocabulario.html">QUIZ DE VOCABULÁRIO</a>
+            <a href="tabela_de_traducao.html">DICIONÁRIO DE GÍRIAS</a>
+            <a href="impacto_no_vocabulario.html">IMPACTO NO VOCABULÁRIO</a>
+            <a href="sobre.html">SOBRE</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Linha do Tempo</h1>
+    </section>
+
+    <main class="page-container timeline-page">
+
+        <section class="timeline-intro">
+            <h2>Globalização e vocabulário brasileiro</h2>
+
+            <p>
+                Use os controles para aproximar a linha do tempo. A visão inicial mostra apenas as grandes divisões.
+                Ao aumentar o zoom, aparecem mais acontecimentos, palavras estrangeiras e mudanças culturais que
+                influenciaram o português brasileiro.
+            </p>
+        </section>
+
+        <section class="timeline-controls" aria-label="Controles da linha do tempo">
+            <div class="zoom-panel">
+                <button type="button" id="zoomOut">− Zoom</button>
+
+                <div class="zoom-status">
+                    <span id="zoomLabel">Visão geral</span>
+                    <div class="zoom-bar">
+                        <span id="zoomProgress"></span>
+                    </div>
+                </div>
+
+                <button type="button" id="zoomIn">+ Zoom</button>
+                <button type="button" id="resetTimeline">Resetar</button>
+            </div>
+            <!-- Painel de Períodos Atualizado -->
+            <div class="period-panel">
+                <button type="button" class="period-btn active" data-period="all">Todos</button>
+                <button type="button" class="period-btn" data-period="x">Geração X (1965 - 1980)</button>
+                <button type="button" class="period-btn" data-period="millennials">Millennials (1981 - 1996)</button>
+                <button type="button" class="period-btn" data-period="z">Geração Z (1997 - 2012)</button>
+            </div>
+        </section>
+
+        <!-- Linha do Tempo Vertical Completa e Enriquecida -->
+        <section class="timeline-vertical" data-zoom="0">
+
+            <!-- GERAÇÃO X -->
+            <article class="timeline-event major" data-level="0" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1965 - 1980</span>
+                    <h2>Geração X</h2>
+                    <p>
+                        A ponte entre o mundo analógico e o digital. Essa geração cresceu com televisão, rádio,
+                        videocassete, consumo de massa, shopping centers e os primeiros contatos com computadores.
+                        O inglês aparece associado a modernidade, status, consumo, carreira e cultura pop.
+                    </p>
+                    <strong>Consumo, mídia de massa e começo da tecnologia doméstica</strong>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1970</span>
+                    <h2>TV, música pop e juventude urbana</h2>
+                    <p>
+                        A televisão, os discos importados, os filmes estrangeiros e a cultura jovem aproximaram o
+                        brasileiro de palavras ligadas à música, moda e comportamento.
+                    </p>
+                    <span class="word-chip">Rock</span>
+                    <span class="word-chip">Pop</span>
+                    <span class="word-chip">Show</span>
+                    <span class="word-chip">Hit</span>
+                    <span class="word-chip">Fã</span>
+                    <span class="word-chip">Poster</span>
+                    <span class="word-chip">Jeans</span>
+                    <span class="word-chip">Look</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1973</span>
+                    <h2>Moda, estilo e aparência</h2>
+                    <p>
+                        Termos estrangeiros passaram a indicar sofisticação, estilo e pertencimento a uma cultura urbana
+                        globalizada. Muitos permaneceram no português brasileiro sem tradução direta.
+                    </p>
+                    <span class="word-chip">Fashion</span>
+                    <span class="word-chip">Chic</span>
+                    <span class="word-chip">Style</span>
+                    <span class="word-chip">Visual</span>
+                    <span class="word-chip">Glamour</span>
+                    <span class="word-chip">Make-up</span>
+                    <span class="word-chip">Top model</span>
+                    <span class="word-chip">Designer</span>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1975</span>
+                    <h2>Cultura fitness e saúde</h2>
+                    <p>
+                        A influência de academias, vídeos de aeróbica, corrida e hábitos de vida saudáveis trouxe
+                        palavras ligadas ao corpo, desempenho e bem-estar.
+                    </p>
+                    <span class="word-chip">Cooper</span>
+                    <span class="word-chip">Fazer um cooper</span>
+                    <span class="word-chip">Fitness</span>
+                    <span class="word-chip">Check-up</span>
+                    <span class="word-chip">Diet</span>
+                    <span class="word-chip">Light</span>
+                    <span class="word-chip">Body</span>
+                    <span class="word-chip">Personal trainer</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1977</span>
+                    <h2>Ambiente corporativo e “Business English”</h2>
+                    <p>
+                        Com multinacionais e escritórios modernos, o inglês passou a ser usado como marca de
+                        profissionalismo. Algumas expressões entraram como substantivos; outras viraram ações no cotidiano.
+                    </p>
+                    <span class="word-chip">Status</span>
+                    <span class="word-chip">Workshop</span>
+                    <span class="word-chip">Briefing</span>
+                    <span class="word-chip">Feedback</span>
+                    <span class="word-chip">Deadline</span>
+                    <span class="word-chip">Brainstorm</span>
+                    <span class="word-chip">Dar feedback</span>
+                    <span class="word-chip">Fazer brainstorm</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1979</span>
+                    <h2>O “boom” do consumo e do varejo</h2>
+                    <p>
+                        Shopping centers, lojas de departamento e publicidade criaram um vocabulário urbano de compra,
+                        lazer e consumo. Muitos termos foram incorporados como sinal de modernidade.
+                    </p>
+                    <span class="word-chip">Shopping</span>
+                    <span class="word-chip">Sale</span>
+                    <span class="word-chip">Outdoor</span>
+                    <span class="word-chip">Self-service</span>
+                    <span class="word-chip">Fast-food</span>
+                    <span class="word-chip">Delivery</span>
+                    <span class="word-chip">Checkout</span>
+                    <span class="word-chip">Marketing</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="x">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1980</span>
+                    <h2>Videocassete, eletrônicos e lazer doméstico</h2>
+                    <p>
+                        A chegada de aparelhos eletrônicos e comandos em inglês familiarizou o público com palavras de
+                        interface, botões e funções técnicas.
+                    </p>
+                    <span class="word-chip">Play</span>
+                    <span class="word-chip">Pause</span>
+                    <span class="word-chip">Stop</span>
+                    <span class="word-chip">Record</span>
+                    <span class="word-chip">Tape</span>
+                    <span class="word-chip">Video game</span>
+                    <span class="word-chip">Game</span>
+                    <span class="word-chip">Joystick</span>
+                </div>
+            </article>
+
+            <!-- MILLENNIALS -->
+            <article class="timeline-event major" data-level="0" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1981 - 1996</span>
+                    <h2>Millennials / Geração Y</h2>
+                    <p>
+                        Primeira geração a crescer junto com computadores pessoais, internet discada, lan houses,
+                        mensageiros instantâneos, blogs, fóruns e redes sociais iniciais. Aqui o inglês deixa de ser
+                        apenas status e vira ferramenta prática de trabalho, estudo, lazer e sociabilidade.
+                    </p>
+                    <strong>Informática, internet, lan houses e cultura de fóruns</strong>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1990</span>
+                    <h2>Computador pessoal e informática básica</h2>
+                    <p>
+                        A popularização dos PCs trouxe para escolas, escritórios e casas um vocabulário técnico quase
+                        sempre importado do inglês.
+                    </p>
+                    <span class="word-chip">Mouse</span>
+                    <span class="word-chip">Keyboard</span>
+                    <span class="word-chip">Monitor</span>
+                    <span class="word-chip">Software</span>
+                    <span class="word-chip">Hardware</span>
+                    <span class="word-chip">Backup</span>
+                    <span class="word-chip">Fazer backup</span>
+                    <span class="word-chip">Arquivo zipado</span>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1992</span>
+                    <h2>Verbos do escritório digital</h2>
+                    <p>
+                        Com programas de texto, planilhas, impressoras e scanners, surgiram verbos híbridos formados por
+                        radicais ingleses com terminações do português, principalmente “-ar” e “-ear”.
+                    </p>
+                    <span class="word-chip">Deletar</span>
+                    <span class="word-chip">Printar</span>
+                    <span class="word-chip">Escanear</span>
+                    <span class="word-chip">Formatar</span>
+                    <span class="word-chip">Copiar e colar</span>
+                    <span class="word-chip">Salvar</span>
+                    <span class="word-chip">Zipar</span>
+                    <span class="word-chip">Deszipar</span>
+                    <span class="word-chip">Resetar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1994</span>
+                    <h2>Empresas, carreira e globalização econômica</h2>
+                    <p>
+                        A abertura econômica e a presença de multinacionais intensificaram o uso de palavras em inglês no
+                        cotidiano profissional, especialmente em reuniões e treinamentos.
+                    </p>
+                    <span class="word-chip">Networking</span>
+                    <span class="word-chip">Know-how</span>
+                    <span class="word-chip">Brainstorming</span>
+                    <span class="word-chip">Feedback</span>
+                    <span class="word-chip">Case</span>
+                    <span class="word-chip">Job</span>
+                    <span class="word-chip">Meeting</span>
+                    <span class="word-chip">Call</span>
+                    <span class="word-chip">One on one</span>
+                    <span class="word-chip">Hands on</span>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1995</span>
+                    <h2>Internet comercial e navegação</h2>
+                    <p>
+                        A chegada da internet comercial criou uma nova camada de vocabulário. Palavras de navegação,
+                        acesso e transferência de arquivos foram incorporadas rapidamente.
+                    </p>
+                    <span class="word-chip">Site</span>
+                    <span class="word-chip">E-mail</span>
+                    <span class="word-chip">Online</span>
+                    <span class="word-chip">Offline</span>
+                    <span class="word-chip">Download</span>
+                    <span class="word-chip">Upload</span>
+                    <span class="word-chip">Link</span>
+                    <span class="word-chip">Linkar</span>
+                    <span class="word-chip">Logar</span>
+                    <span class="word-chip">Deslogar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1998</span>
+                    <h2>Lan houses e dialeto gamer</h2>
+                    <p>
+                        Jogos online e lan houses criaram um dialeto próprio. Muitos termos de comando e sistema viraram
+                        verbos abrasileirados usados até fora dos games.
+                    </p>
+                    <span class="word-chip">Quitar</span>
+                    <span class="word-chip">Kitar</span>
+                    <span class="word-chip">Kickar</span>
+                    <span class="word-chip">Buggar</span>
+                    <span class="word-chip">Bugar</span>
+                    <span class="word-chip">Lagado</span>
+                    <span class="word-chip">Upar</span>
+                    <span class="word-chip">Dropar</span>
+                    <span class="word-chip">Spawnar</span>
+                    <span class="word-chip">Respawnar</span>
+                    <span class="word-chip">Campar</span>
+                    <span class="word-chip">Rushar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2001</span>
+                    <h2>MSN, chats e comunicação instantânea</h2>
+                    <p>
+                        Mensageiros instantâneos popularizaram uma linguagem curta, rápida e cheia de abreviações.
+                        A conversa digital passou a misturar português, inglês e símbolos.
+                    </p>
+                    <span class="word-chip">Chat</span>
+                    <span class="word-chip">Nick</span>
+                    <span class="word-chip">Status</span>
+                    <span class="word-chip">Avatar</span>
+                    <span class="word-chip">Emoticon</span>
+                    <span class="word-chip">LOL</span>
+                    <span class="word-chip">OMG</span>
+                    <span class="word-chip">Add</span>
+                    <span class="word-chip">Addar</span>
+                    <span class="word-chip">Block</span>
+                    <span class="word-chip">Blockar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2004</span>
+                    <h2>Orkut, comunidades e identidade digital</h2>
+                    <p>
+                        As primeiras redes sociais em massa no Brasil criaram uma cultura de perfil, comunidades,
+                        depoimentos e reputação online.
+                    </p>
+                    <span class="word-chip">Profile</span>
+                    <span class="word-chip">Scrap</span>
+                    <span class="word-chip">Fake</span>
+                    <span class="word-chip">Stalk</span>
+                    <span class="word-chip">Stalkear</span>
+                    <span class="word-chip">Depoimento</span>
+                    <span class="word-chip">Comunidade</span>
+                    <span class="word-chip">Status</span>
+                    <span class="word-chip">Spam</span>
+                    <span class="word-chip">Spammar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2005</span>
+                    <h2>Blogs, fóruns, memes e cultura participativa</h2>
+                    <p>
+                        Fóruns, blogs e comunidades online fortaleceram a circulação de piadas, histórias de fãs,
+                        discussões e conteúdos virais.
+                    </p>
+                    <span class="word-chip">Meme</span>
+                    <span class="word-chip">Spoiler</span>
+                    <span class="word-chip">Fanfic</span>
+                    <span class="word-chip">Fake</span>
+                    <span class="word-chip">Fail</span>
+                    <span class="word-chip">Troll</span>
+                    <span class="word-chip">Trollar</span>
+                    <span class="word-chip">Flop</span>
+                    <span class="word-chip">Flopar</span>
+                    <span class="word-chip">Post</span>
+                    <span class="word-chip">Postar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="millennials">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2006</span>
+                    <h2>YouTube, vídeos e cultura do compartilhamento</h2>
+                    <p>
+                        Plataformas de vídeo aceleraram o contato com tendências internacionais e consolidaram termos de
+                        produção, publicação e audiência.
+                    </p>
+                    <span class="word-chip">Vlog</span>
+                    <span class="word-chip">Uploadar</span>
+                    <span class="word-chip">Downloadar</span>
+                    <span class="word-chip">Streamar</span>
+                    <span class="word-chip">Clipar</span>
+                    <span class="word-chip">View</span>
+                    <span class="word-chip">Like</span>
+                    <span class="word-chip">Dar like</span>
+                    <span class="word-chip">Subscribe</span>
+                    <span class="word-chip">Se inscrever</span>
+                </div>
+            </article>
+
+            <!-- GERAÇÃO Z -->
+            <article class="timeline-event major" data-level="0" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">1997 - 2012</span>
+                    <h2>Geração Z</h2>
+                    <p>
+                        Nativos digitais que cresceram em um ambiente permanentemente conectado. Para essa geração,
+                        a globalização linguística acontece em tempo real por redes sociais, algoritmos, memes,
+                        games competitivos, vídeos curtos, streaming e cultura de influenciadores.
+                    </p>
+                    <strong>Plataformas, memes, estética digital e comportamento online</strong>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2007</span>
+                    <h2>Smartphones e redes sociais móveis</h2>
+                    <p>
+                        A internet passa a caber no bolso. A comunicação fica visual, imediata e baseada em aplicativos,
+                        notificações, fotos e interações rápidas.
+                    </p>
+                    <span class="word-chip">Smartphone</span>
+                    <span class="word-chip">App</span>
+                    <span class="word-chip">Touch</span>
+                    <span class="word-chip">Feed</span>
+                    <span class="word-chip">Story</span>
+                    <span class="word-chip">Post</span>
+                    <span class="word-chip">Repost</span>
+                    <span class="word-chip">Repostar</span>
+                    <span class="word-chip">Selfie</span>
+                    <span class="word-chip">Hashtag</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2010</span>
+                    <h2>Afetividade, flerte e vida social online</h2>
+                    <p>
+                        Relações pessoais passaram a ser mediadas por perfis, mensagens, curtidas e aplicativos.
+                        Surgem verbos para comportamentos afetivos digitais.
+                    </p>
+                    <span class="word-chip">Crush</span>
+                    <span class="word-chip">Match</span>
+                    <span class="word-chip">Dar match</span>
+                    <span class="word-chip">Ship</span>
+                    <span class="word-chip">Shippar</span>
+                    <span class="word-chip">Stalk</span>
+                    <span class="word-chip">Stalkear</span>
+                    <span class="word-chip">Ghosting</span>
+                    <span class="word-chip">Ghostear</span>
+                    <span class="word-chip">Soft block</span>
+                    <span class="word-chip">Soft launch</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2011</span>
+                    <h2>Streaming, maratonas e consumo sob demanda</h2>
+                    <p>
+                        Música, séries, filmes e vídeos passaram a ser consumidos por plataformas. A ideia de assistir
+                        quando quiser trouxe novas palavras ao cotidiano.
+                    </p>
+                    <span class="word-chip">Streaming</span>
+                    <span class="word-chip">Playlist</span>
+                    <span class="word-chip">Podcast</span>
+                    <span class="word-chip">Maratonar</span>
+                    <span class="word-chip">Binge-watch</span>
+                    <span class="word-chip">Trailer</span>
+                    <span class="word-chip">Teaser</span>
+                    <span class="word-chip">Review</span>
+                    <span class="word-chip">Spoiler</span>
+                    <span class="word-chip">Dropar série</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2013</span>
+                    <h2>Fandoms, cultura pop global e comunidades digitais</h2>
+                    <p>
+                        Grupos de fãs passaram a se organizar globalmente, criando vocabulário próprio para admiração,
+                        defesa de artistas, teorias e produção de conteúdo.
+                    </p>
+                    <span class="word-chip">Fandom</span>
+                    <span class="word-chip">Stan</span>
+                    <span class="word-chip">Hater</span>
+                    <span class="word-chip">Comeback</span>
+                    <span class="word-chip">Fanfic</span>
+                    <span class="word-chip">Canon</span>
+                    <span class="word-chip">Headcanon</span>
+                    <span class="word-chip">Bias</span>
+                    <span class="word-chip">Exposed</span>
+                    <span class="word-chip">Cancelar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event" data-level="1" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2015</span>
+                    <h2>eSports, streamers e linguagem gamer</h2>
+                    <p>
+                        Jogos competitivos e transmissões ao vivo fizeram o vocabulário gamer sair dos jogos e entrar
+                        na vida cotidiana, descrevendo esforço, fracasso, resistência e desempenho.
+                    </p>
+                    <span class="word-chip">Farmar</span>
+                    <span class="word-chip">Tankar</span>
+                    <span class="word-chip">Feedar</span>
+                    <span class="word-chip">Gankar</span>
+                    <span class="word-chip">Nerfar</span>
+                    <span class="word-chip">Buffar</span>
+                    <span class="word-chip">Rankear</span>
+                    <span class="word-chip">Ranquear</span>
+                    <span class="word-chip">X1</span>
+                    <span class="word-chip">Poggers</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2016</span>
+                    <h2>Influencers, engajamento e economia da atenção</h2>
+                    <p>
+                        Criadores de conteúdo transformaram a audiência em profissão. Termos de métricas e performance
+                        passaram a explicar relevância social.
+                    </p>
+                    <span class="word-chip">Influencer</span>
+                    <span class="word-chip">Creator</span>
+                    <span class="word-chip">Engagement</span>
+                    <span class="word-chip">Engajar</span>
+                    <span class="word-chip">Follow</span>
+                    <span class="word-chip">Followar</span>
+                    <span class="word-chip">Unfollow</span>
+                    <span class="word-chip">Dar unfollow</span>
+                    <span class="word-chip">Trend</span>
+                    <span class="word-chip">Viral</span>
+                    <span class="word-chip">Viralizar</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2018</span>
+                    <h2>Memes, hype e julgamento social</h2>
+                    <p>
+                        O sucesso ou fracasso de pessoas, marcas e conteúdos passa a ser medido por repercussão,
+                        curtidas, compartilhamentos e memes.
+                    </p>
+                    <span class="word-chip">Hype</span>
+                    <span class="word-chip">Hitar</span>
+                    <span class="word-chip">Flop</span>
+                    <span class="word-chip">Flopar</span>
+                    <span class="word-chip">Cringe</span>
+                    <span class="word-chip">Mood</span>
+                    <span class="word-chip">Vibe</span>
+                    <span class="word-chip">Random</span>
+                    <span class="word-chip">Sus</span>
+                    <span class="word-chip">Shook</span>
+                    <span class="word-chip">Iconic</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2020</span>
+                    <h2>Pandemia, home office e vida por chamada</h2>
+                    <p>
+                        A migração para trabalho, estudo e eventos online intensificou o uso de palavras ligadas a
+                        reuniões virtuais, produtividade e saúde mental.
+                    </p>
+                    <span class="word-chip">Home office</span>
+                    <span class="word-chip">Call</span>
+                    <span class="word-chip">Meeting</span>
+                    <span class="word-chip">Mutar</span>
+                    <span class="word-chip">Desmutar</span>
+                    <span class="word-chip">Sharear tela</span>
+                    <span class="word-chip">Coworking</span>
+                    <span class="word-chip">Burnout</span>
+                    <span class="word-chip">Deadline</span>
+                    <span class="word-chip">Daily</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2021</span>
+                    <h2>Estéticas digitais e identidade visual</h2>
+                    <p>
+                        Com TikTok, Pinterest e Instagram, nomes de estilos globais passaram a circular rapidamente,
+                        moldando moda, comportamento e autoimagem.
+                    </p>
+                    <span class="word-chip">Aesthetic</span>
+                    <span class="word-chip">Clean girl</span>
+                    <span class="word-chip">Dark academia</span>
+                    <span class="word-chip">E-girl</span>
+                    <span class="word-chip">E-boy</span>
+                    <span class="word-chip">Outfit</span>
+                    <span class="word-chip">Drip</span>
+                    <span class="word-chip">Glow up</span>
+                    <span class="word-chip">GRWM</span>
+                    <span class="word-chip">Main character</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2022</span>
+                    <h2>Gírias de comportamento e psicologia da internet</h2>
+                    <p>
+                        A linguagem digital passou a nomear atitudes, inseguranças, relações tóxicas e formas de
+                        autopreservação emocional.
+                    </p>
+                    <span class="word-chip">Red flag</span>
+                    <span class="word-chip">Pick me</span>
+                    <span class="word-chip">Simp</span>
+                    <span class="word-chip">Low profile</span>
+                    <span class="word-chip">Lowkey</span>
+                    <span class="word-chip">Highkey</span>
+                    <span class="word-chip">Valid</span>
+                    <span class="word-chip">No cap</span>
+                    <span class="word-chip">Delulu</span>
+                    <span class="word-chip">Situationship</span>
+                    <span class="word-chip">Trauma dump</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2023</span>
+                    <h2>Brainrot, nichos globais e humor pós-irônico</h2>
+                    <p>
+                        Gírias de comunidades internacionais passaram a chegar ao Brasil quase instantaneamente,
+                        principalmente por vídeos curtos, memes e cortes de streamers.
+                    </p>
+                    <span class="word-chip">Brainrot</span>
+                    <span class="word-chip">Moggar</span>
+                    <span class="word-chip">Rizz</span>
+                    <span class="word-chip">Silent rizz</span>
+                    <span class="word-chip">Based</span>
+                    <span class="word-chip">NPC</span>
+                    <span class="word-chip">Mid</span>
+                    <span class="word-chip">Cooked</span>
+                    <span class="word-chip">Let him cook</span>
+                    <span class="word-chip">Touch grass</span>
+                    <span class="word-chip">POV</span>
+                </div>
+            </article>
+
+            <article class="timeline-event detail" data-level="2" data-period="z">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2024</span>
+                    <h2>IA generativa, prompts e automação criativa</h2>
+                    <p>
+                        Ferramentas de inteligência artificial popularizaram termos técnicos em escolas, empresas e
+                        redes sociais. Novos verbos surgem para descrever a interação com sistemas inteligentes.
+                    </p>
+                    <span class="word-chip">Prompt</span>
+                    <span class="word-chip">Promptar</span>
+                    <span class="word-chip">Chatbot</span>
+                    <span class="word-chip">Input</span>
+                    <span class="word-chip">Inputar</span>
+                    <span class="word-chip">Output</span>
+                    <span class="word-chip">Gerar</span>
+                    <span class="word-chip">Renderizar</span>
+                    <span class="word-chip">Automação</span>
+                    <span class="word-chip">Dataset</span>
+                    <span class="word-chip">Upgrade</span>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <h3>Influência da Globalização no Vocabulário Brasileiro</h3>
+        <p>
+            <strong>Disciplina:</strong> Padrões Web
+        </p>
+        <ul>
+            <li>Beatriz Fernandes</li>
+            <li>Gustavo Machado</li>
+            <li>Johnny Sarafim</li>
+            <li>Julio Cesar Navas</li>
+            <li>Thiago Honório</li>
+        </ul>
+    </footer>
+
+</body>
+
+</html>
