@@ -34,7 +34,7 @@ let isAnimating = false;
 
 async function loadDictionary() {
     try {
-        const response = await fetch("girias_csv.txt");
+        const response = await fetch("/js/girias_csv.txt");
 
         if (!response.ok) {
             throw new Error("Não foi possível carregar o arquivo girias_csv.txt");
