@@ -163,12 +163,12 @@ function renderBook() {
 
     updateButtons();
 }
-
+//consideraçoes : 
 function renderEntries(items) {
     if (items.length === 0) {
         return `
             <div class="empty-message">
-                Nenhuma gíria encontrada nesta página.
+                Nenhuma gíria encontrada nesta página. 
             </div>
         `;
     }
