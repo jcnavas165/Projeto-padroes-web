@@ -12,44 +12,21 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/quiz.css">
 </head>
 
 <body>
 
     <header>
-
         <nav>
-
-            <a href="pagina_inicial.html">
-                PÁGINA INICIAL
-            </a>
-
-            <a href="contextualizacao.html">
-                CONTEXTUALIZAÇÃO
-            </a>
-
-            <a href="linha_do_tempo.html">
-                LINHA DO TEMPO
-            </a>
-
-            <a href="quiz_de_vocabulario.html">
-                QUIZ DE VOCABULÁRIO
-            </a>
-
-            <a href="tabela_de_traducao.html">
-                DICIONÁRIO DE GÍRIAS
-            </a>
-
-            <a href="impacto_no_vocabulario.html">
-                IMPACTO NO VOCABULÁRIO
-            </a>
-
-            <a href="sobre.html">
-                SOBRE
-            </a>
-
+            <a href="pagina_inicial.html">PÁGINA INICIAL</a>
+            <a href="contextualizacao.html">CONTEXTUALIZAÇÃO</a>
+            <a href="linha_do_tempo.html">LINHA DO TEMPO</a>
+            <a href="quiz_de_vocabulario.html">QUIZ DE VOCABULÁRIO</a>
+            <a href="tabela_de_traducao.html">DICIONÁRIO DE GÍRIAS</a>
+            <a href="impacto_no_vocabulario.html">IMPACTO NO VOCABULÁRIO</a>
+            <a href="sobre.html">SOBRE</a>
         </nav>
-
     </header>
 
     <section class="hero">
@@ -58,53 +35,51 @@
 
     <main class="page-container">
 
-        <p>
-            Nesta página, você pode criar perguntas sobre palavras estrangeiras usadas no português brasileiro,
-            seus significados e suas áreas de uso.
-        </p>
+        <div class="quiz-card">
 
-        <div class="card">
+            <!-- Barra de título -->
+            <div class="quiz-card__header">
+                <div class="quiz-card__dots">
+                    <span class="quiz-card__dot"></span>
+                    <span class="quiz-card__dot"></span>
+                    <span class="quiz-card__dot"></span>
+                </div>
+                <span class="quiz-card__title">Questionário interativo</span>
+                <span class="quiz-card__contador" id="contador">1 / 5</span>
+            </div>
 
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
+            <!-- Área de conteúdo -->
+            <div class="quiz-card__media">
 
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
+                <!-- Tela da pergunta -->
+                <div class="quiz-tela" id="tela-pergunta">
+                    <p class="quiz-pergunta" id="texto-pergunta"></p>
+                    <ul class="quiz-opcoes" id="lista-opcoes"></ul>
+                </div>
 
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
+                <!-- Tela de resultado final -->
+                <div class="quiz-tela quiz-resultado" id="tela-resultado" style="display: none;">
+                    <p class="quiz-resultado__emoji" id="resultado-emoji"></p>
+                    <p class="quiz-resultado__texto" id="resultado-texto"></p>
+                    <p class="quiz-resultado__pontos" id="resultado-pontos"></p>
+                </div>
 
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
+            </div>
 
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
-                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
-                conubia nostra inceptos himenaeos.
-            </p>
+            <!-- Botões de navegação -->
+            <div class="quiz-card__footer">
+                <button class="quiz-btn" id="btn-anterior" onclick="irPara(-1)">← Anterior</button>
+                <button class="quiz-btn quiz-btn--primary" id="btn-confirmar" onclick="confirmar()">Confirmar</button>
+                <button class="quiz-btn" id="btn-proxima" onclick="irPara(1)">Próxima →</button>
+            </div>
+
         </div>
 
     </main>
 
     <footer>
         <h3>Influência da Globalização no Vocabulário Brasileiro</h3>
-        <p>
-            <strong>Disciplina:</strong> Padrões Web
-        </p>
+        <p><strong>Disciplina:</strong> Padrões Web</p>
         <ul>
             <li>Beatriz Fernandes</li>
             <li>Gustavo Machado</li>
@@ -114,6 +89,7 @@
         </ul>
     </footer>
 
-</body>
+    <script src="../js/quiz.js"></script>
 
+</body>
 </html>
