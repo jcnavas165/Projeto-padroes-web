@@ -59,7 +59,6 @@
                 class="ctx-video"
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                 title="Evolução do vocabulário popular ao longo das gerações"
-                frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
             </iframe>
@@ -103,7 +102,7 @@
                 <p class="ctx-wordcloud-hint">
                     Pressione <kbd>Enter</kbd> ou clique em <strong>Adicionar</strong> para incluir sua palavra na nuvem.
                 </p>
-                <div id="userTagsContainer" class="ctx-user-tags" aria-label="Palavras adicionadas" aria-live="polite"></div>
+                <div id="userTagsContainer" class="ctx-user-tags" role="region" aria-label="Palavras adicionadas" aria-live="polite"></div>
             </div>
 
             <canvas id="wordCloudCanvas"></canvas>
