@@ -9,12 +9,11 @@
 
 .ctx-page .ctx-section-title {
     text-align: center;
-    width: 100%; /* Garante que o elemento ocupe toda a largura para alinhar ao centro */
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Centraliza todos os filhos diretos do ctx-page */
 .ctx-page > * {
     max-width: 1080px;
     width: 100%;
