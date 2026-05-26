@@ -25,10 +25,10 @@
 }
 
 .dictionary-tools {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
+    flex-wrap: wrap;
     gap: 18px;
-    align-items: end;
+    align-items: flex-end;
     margin: 0 auto 34px;
     max-width: 1120px;
     padding: 20px;
@@ -44,6 +44,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1 1 auto;
+    min-width: 280px;
 }
 
 .search-box label {
@@ -77,6 +79,7 @@
     flex-direction: column;
     gap: 8px;
     min-width: 210px;
+    flex-shrink: 0;
 }
 
 .dictionary-stats span {
@@ -104,11 +107,14 @@
     position: relative;
     width: min(100%, 980px);
     min-height: 620px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     border-radius: 22px;
     transform-style: preserve-3d;
     filter: drop-shadow(0 24px 34px rgba(31, 63, 43, 0.24));
+}
+
+.book-page {
+    flex: 1 1 50%;
 }
 
 .book::before {
@@ -492,11 +498,14 @@
 
 @media (max-width: 800px) {
     .dictionary-tools {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
 
     .dictionary-stats {
         min-width: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
     }
 
     .book-stage {
@@ -505,7 +514,7 @@
 
     .book {
         width: 100%;
-        grid-template-columns: 1fr;
+        flex-direction: column;
         min-height: auto;
     }
 

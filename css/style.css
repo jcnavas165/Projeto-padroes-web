@@ -243,10 +243,15 @@ footer li {
 
 /* Grid de Páginas */
 .pages-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 28px;
     margin-top: 40px;
+}
+
+.pages-grid .page-card {
+    flex: 1 1 calc(33.333% - 19px);
+    min-width: 280px;
 }
 
 .page-card {
@@ -334,8 +339,12 @@ footer li {
         gap: 22px;
     }
 
+    .pages-grid .page-card {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 240px;
+    }
+
     .pages-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 
@@ -349,8 +358,11 @@ footer li {
         height: 170px;
     }
 
+    .pages-grid .page-card {
+        flex: 1 1 100%;
+    }
+
     .pages-grid {
-        grid-template-columns: 1fr;
         gap: 16px;
     }
 
