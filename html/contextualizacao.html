@@ -1,261 +1,134 @@
-/* Página de contextualização */
-.ctx-page {
-    display: flex;
-    flex-direction: column;
-    gap: 34px;
-    background:
-        radial-gradient(circle at top left, rgba(233, 185, 73, 0.16), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(46, 94, 62, 0.10), transparent 36%),
-        #FDFDFD;
-}
+<!DOCTYPE html>
+<html lang="pt-br">
 
-.ctx-section {
-    max-width: 1080px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 30px;
-    background: var(--fundo-card);
-    border: 1px solid rgba(31, 63, 43, 0.14);
-    border-left: 6px solid var(--dourado-principal);
-    border-radius: 16px;
-    box-shadow:
-        0 8px 22px rgba(31, 63, 43, 0.10),
-        0 1px 2px rgba(0, 0, 0, 0.06);
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextualização</title>
 
-.ctx-section-title {
-    margin-bottom: 18px;
-    padding-bottom: 12px;
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    font-size: 30px;
-    line-height: 1.25;
-    color: var(--verde-principal);
-    border-bottom: 2px solid rgba(233, 185, 73, 0.45);
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/contextualizacao.css">
+</head>
 
-.ctx-text {
-    max-width: 920px;
-    margin-bottom: 14px;
-    color: var(--texto-secundario);
-    font-size: 16px;
-    line-height: 1.75;
-    text-align: justify;
-}
+<body>
 
-/* Vídeo */
-.ctx-video-wrapper {
-    width: min(100%, 860px);
-    margin: 28px auto 0;
-    overflow: hidden;
-    border: 1px solid rgba(31, 63, 43, 0.14);
-    border-radius: 16px;
-    background: #ffffff;
-    box-shadow: 0 10px 24px rgba(31, 63, 43, 0.14);
-    aspect-ratio: 16 / 9;
-}
+    <header>
+        <nav>
+            <a href="pagina_inicial.html">PÁGINA INICIAL</a>
+            <a href="contextualizacao.html">CONTEXTUALIZAÇÃO</a>
+            <a href="linha_do_tempo.html">LINHA DO TEMPO</a>
+            <a href="quiz_de_vocabulario.html">QUIZ DE VOCABULÁRIO</a>
+            <a href="tabela_de_traducao.html">DICIONÁRIO DE GÍRIAS</a>
+            <a href="impacto_no_vocabulario.html">IMPACTO NO VOCABULÁRIO</a>
+            <a href="sobre.html">SOBRE</a>
+        </nav>
+    </header>
 
-.ctx-video {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
+    <section class="hero">
+        <h1>Contextualização</h1>
+    </section>
 
-/* Nuvem de palavras */
-.ctx-wordcloud-wrapper {
-    width: min(100%, 920px);
-    margin: 28px auto 0;
-    padding: 24px;
-    background:
-        linear-gradient(135deg, rgba(46, 94, 62, 0.08), rgba(233, 185, 73, 0.18)),
-        #ffffff;
-    border: 1px solid rgba(31, 63, 43, 0.14);
-    border-radius: 16px;
-    box-shadow: 0 8px 22px rgba(31, 63, 43, 0.10);
-}
+    <main class="page-container ctx-page">
 
-.ctx-wordcloud-title {
-    margin-bottom: 18px;
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    font-size: 22px;
-    color: var(--verde-escuro);
-    text-align: center;
-}
+        <!-- Seção 1: Evolução do Vocabulário -->
+        <section class="ctx-section">
+            <h2 class="ctx-section-title">Evolução do Vocabulário popular ao longo das Gerações</h2>
 
-.ctx-wordcloud-input-area {
-    margin-bottom: 22px;
-}
+            <p class="ctx-text">
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
+                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
+                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
+                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
+                conubia nostra inceptos himenaeos.
+            </p>
+            <p class="ctx-text">
+                Sed uma massa adipiscing egestas accumsan aliquet mauris egestas turpis. Vitae pulvinar lobortis vel ut
+                at. Sed facilisis vestibulum, sed bibendum. Vitae, tristique suspendisse condimentum pulvinar rutrum dui
+                sed tincid. Sed uma massa adipiscing egestas accumsan aliquet mauris egestas turpis. Vitae pulvinar
+                lobortis vel ut at. Sed facilisis vestibulum, sed bibendum. Vitae, tristique suspendisse condimentum
+                pulvinar rutrum dui sed tincid.
+            </p>
 
-.ctx-wordcloud-input-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
+            <!-- Vídeo incorporado -->
+            <div class="ctx-video-wrapper">
+                <iframe
+                    class="ctx-video"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Evolução do vocabulário popular ao longo das gerações"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
 
-.ctx-wordcloud-input {
-    flex: 1;
-    min-width: 0;
-    padding: 12px 16px;
-    border: 2px solid rgba(31, 63, 43, 0.18);
-    border-radius: 999px;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-size: 15px;
-    color: var(--texto-principal);
-    background: #ffffff;
-    outline: none;
-    transition: border 0.2s ease, box-shadow 0.2s ease;
-}
+        <!-- Seção 2: Gerações atuais e a Internet -->
+        <section class="ctx-section">
+            <h2 class="ctx-section-title">Gerações atuais e o impacto da Internet no Vocabulário</h2>
 
-.ctx-wordcloud-input:focus {
-    border-color: var(--dourado-principal);
-    box-shadow: 0 0 0 4px rgba(233, 185, 73, 0.20);
-}
+            <p class="ctx-text">
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
+                sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
+                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia
+                integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per
+                conubia nostra inceptos himenaeos.
+            </p>
+            <p class="ctx-text">
+                Sed uma massa adipiscing egestas accumsan aliquet mauris egestas turpis. Vitae pulvinar lobortis vel ut
+                at. Sed facilisis vestibulum, sed bibendum. Vitae, tristique suspendisse condimentum pulvinar rutrum dui
+                sed tincid. Sed uma massa adipiscing egestas accumsan aliquet mauris egestas turpis.
+            </p>
 
-.ctx-wordcloud-btn {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 999px;
-    cursor: pointer;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--verde-escuro);
-    background: var(--dourado-principal);
-    box-shadow: 0 4px 12px rgba(31, 63, 43, 0.16);
-    white-space: nowrap;
-    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-}
+            <!-- Nuvem de palavras -->
+            <div class="ctx-wordcloud-wrapper">
+                <h3 class="ctx-wordcloud-title">Quais palavras estrangeiras você usa no dia a dia?</h3>
 
-.ctx-wordcloud-btn:hover {
-    transform: translateY(-2px);
-    background: var(--dourado-claro);
-    box-shadow: 0 8px 18px rgba(31, 63, 43, 0.22);
-}
+                <!-- Input para adicionar palavras -->
+                <div class="ctx-wordcloud-input-area">
+                    <div class="ctx-wordcloud-input-row">
+                        <input
+                            type="text"
+                            id="wordInput"
+                            class="ctx-wordcloud-input"
+                            placeholder="Digite uma palavra estrangeira..."
+                            maxlength="30"
+                            autocomplete="off"
+                            spellcheck="false">
+                        <button type="button" id="addWordBtn" class="ctx-wordcloud-btn">
+                            Adicionar
+                        </button>
+                    </div>
+                    <p class="ctx-wordcloud-hint">
+                        Pressione <kbd>Enter</kbd> ou clique em <strong>Adicionar</strong> para incluir sua palavra na nuvem.
+                    </p>
+                    <div id="userTagsContainer" class="ctx-user-tags" aria-label="Palavras adicionadas" aria-live="polite"></div>
+                </div>
 
-.ctx-wordcloud-hint {
-    margin-top: 10px;
-    color: var(--texto-secundario);
-    font-size: 13px;
-    line-height: 1.5;
-    text-align: center;
-}
+                <canvas id="wordCloudCanvas"></canvas>
+            </div>
+        </section>
 
-.ctx-wordcloud-hint kbd {
-    padding: 2px 7px;
-    border-radius: 6px;
-    background: var(--verde-claro);
-    color: var(--verde-escuro);
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-}
+    </main>
 
-.ctx-user-tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 12px;
-    min-height: 24px;
-}
+    <footer>
+        <h3>Influência da Globalização no Vocabulário Brasileiro</h3>
+        <p><strong>Disciplina:</strong> Padrões Web</p>
+        <ul>
+            <li>Beatriz Fernandes</li>
+            <li>Gustavo Machado</li>
+            <li>Johnny Sarafim</li>
+            <li>Julio Cesar Navas</li>
+            <li>Thiago Honório</li>
+        </ul>
+    </footer>
 
-.ctx-user-tags span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 11px;
-    border-radius: 999px;
-    background: var(--verde-claro);
-    color: var(--verde-escuro);
-    font-size: 13px;
-    font-weight: 800;
-    font-family: 'Montserrat', Arial, sans-serif;
-}
+    <script src="../js/nuvem_palavras.js"></script>
 
-.ctx-user-tags span button {
-    border: none;
-    background: rgba(31, 63, 43, 0.18);
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    font-size: 12px;
-    line-height: 1;
-    color: var(--verde-escuro);
-    padding: 0;
-}
+</body>
 
-#wordCloudCanvas {
-    width: 100%;
-    max-width: 860px;
-    height: 420px;
-    display: block;
-    margin: 0 auto;
-    border: 1px solid rgba(31, 63, 43, 0.10);
-    border-radius: 14px;
-    background: #FFFDF6;
-    box-shadow: inset 0 0 18px rgba(31, 63, 43, 0.06);
-}
-
-@media (max-width: 900px) {
-    .ctx-page {
-        gap: 24px;
-        padding: 22px;
-    }
-
-    .ctx-section {
-        padding: 24px;
-    }
-
-    .ctx-section-title {
-        font-size: 25px;
-    }
-
-    .ctx-text {
-        text-align: left;
-    }
-}
-
-@media (max-width: 600px) {
-    .ctx-page {
-        width: min(94%, 1400px);
-        padding: 18px;
-        margin: 30px auto;
-    }
-
-    .ctx-section {
-        padding: 20px;
-        border-left-width: 4px;
-        border-radius: 12px;
-    }
-
-    .ctx-section-title {
-        font-size: 21px;
-    }
-
-    .ctx-text {
-        font-size: 14px;
-        line-height: 1.65;
-    }
-
-    .ctx-wordcloud-wrapper {
-        padding: 18px;
-        border-radius: 12px;
-    }
-
-    .ctx-wordcloud-title {
-        font-size: 18px;
-    }
-
-    .ctx-wordcloud-input-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .ctx-wordcloud-btn {
-        width: 100%;
-    }
-
-    #wordCloudCanvas {
-        height: 320px;
-    }
-}
+</html>
