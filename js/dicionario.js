@@ -1,206 +1,208 @@
-const book = document.getElementById("dictionaryBook");
+const livro = document.getElementById("dictionaryBook");
 
-const leftPageTitle = document.getElementById("leftPageTitle");
-const rightPageTitle = document.getElementById("rightPageTitle");
+const tituloPaginaEsquerda = document.getElementById("leftPageTitle");
+const tituloPaginaDireita = document.getElementById("rightPageTitle");
 
-const leftPageContent = document.getElementById("leftPageContent");
-const rightPageContent = document.getElementById("rightPageContent");
+const conteudoPaginaEsquerda = document.getElementById("leftPageContent");
+const conteudoPaginaDireita = document.getElementById("rightPageContent");
 
-const leftPageNumber = document.getElementById("leftPageNumber");
-const rightPageNumber = document.getElementById("rightPageNumber");
+const numeroPaginaEsquerda = document.getElementById("leftPageNumber");
+const numeroPaginaDireita = document.getElementById("rightPageNumber");
 
-const prevPageButton = document.getElementById("prevPage");
-const nextPageButton = document.getElementById("nextPage");
+const botaoPaginaAnteriorTopo = document.getElementById("prevPage");
+const botaoProximaPaginaTopo = document.getElementById("nextPage");
 
-const prevPageBottomButton = document.getElementById("prevPageBottom");
-const nextPageBottomButton = document.getElementById("nextPageBottom");
+const botaoPaginaAnteriorRodape = document.getElementById("prevPageBottom");
+const botaoProximaPaginaRodape = document.getElementById("nextPageBottom");
 
-const firstPageButton = document.getElementById("firstPage");
-const lastPageButton = document.getElementById("lastPage");
+const botaoPrimeiraPagina = document.getElementById("firstPage");
+const botaoUltimaPagina = document.getElementById("lastPage");
 
-const pageIndicator = document.getElementById("pageIndicator");
-const totalTerms = document.getElementById("totalTerms");
-const currentRange = document.getElementById("currentRange");
+const indicadorPagina = document.getElementById("pageIndicator");
+const totalTermos = document.getElementById("totalTerms");
+const faixaAtual = document.getElementById("currentRange");
 
-const searchInput = document.getElementById("dictionarySearch");
+const campoBusca = document.getElementById("dictionarySearch");
 
-const itemsPerSide = 4;
-const itemsPerSpread = itemsPerSide * 2;
+const itensPorLado = 4;
+const itensPorAbertura = itensPorLado * 2;
 
-let allTerms = [];
-let filteredTerms = [];
-let currentSpread = 0;
-let isAnimating = false;
+let termosCompletos = [];
+let termosFiltrados = [];
+let aberturaAtual = 0;
+let animandoTroca = false;
 
-async function loadDictionary() {
+// Carrega o CSV, prepara os termos e inicia a renderização do livro.
+async function carregarDicionario() {
     try {
-        const response = await fetch("/js/girias_csv.txt");
+        const resposta = await fetch("/js/girias_csv.txt");
 
-        if (!response.ok) {
+        if (!resposta.ok) {
             throw new Error("Não foi possível carregar o arquivo girias_csv.txt");
         }
 
-        const csvText = await response.text();
-        allTerms = parseCSV(csvText);
+        const textoCsv = await resposta.text();
+        termosCompletos = converterCsvParaTermos(textoCsv);
+        termosCompletos.sort((a, b) => a.giria.localeCompare(b.giria, "pt-BR"));
 
-        allTerms.sort((a, b) => a.giria.localeCompare(b.giria, "pt-BR"));
-
-        filteredTerms = [...allTerms];
-
-        renderBook();
-    } catch (error) {
-        leftPageContent.innerHTML = `
-            <div class="empty-message">
-                Não foi possível carregar o arquivo <strong>girias_csv.txt</strong>.
-                Verifique se ele está na mesma pasta do HTML e abra o projeto usando um servidor local.
-            </div>
-        `;
-
-        rightPageContent.innerHTML = `
-            <div class="empty-message">
-                Dica: use a extensão Live Server no VS Code para testar a página corretamente.
-            </div>
-        `;
-
-        totalTerms.textContent = "Arquivo não carregado";
-        currentRange.textContent = "Sem dados";
-        pageIndicator.textContent = "Página 0 de 0";
-
-        updateButtons();
-        console.error(error);
+        termosFiltrados = [...termosCompletos];
+        renderizarLivro();
+    } catch (erro) {
+        mostrarErroDeCarregamento();
+        console.error(erro);
     }
 }
 
-function parseCSV(csvText) {
-    const lines = csvText
-        .trim()
-        .split(/\r?\n/)
-        .filter((line) => line.trim() !== "");
+// Exibe mensagens de fallback quando o arquivo de gírias não pode ser lido.
+function mostrarErroDeCarregamento() {
+    conteudoPaginaEsquerda.innerHTML = `
+        <div class="empty-message">
+            Não foi possível carregar o arquivo <strong>girias_csv.txt</strong>.
+            Verifique se ele está na mesma pasta do HTML e abra o projeto usando um servidor local.
+        </div>
+    `;
 
-    const dataLines = lines.slice(1);
+    conteudoPaginaDireita.innerHTML = `
+        <div class="empty-message">
+            Dica: use a extensão Live Server no VS Code para testar a página corretamente.
+        </div>
+    `;
 
-    return dataLines.map((line) => {
-        const columns = splitCSVLine(line);
-
-        return {
-            giria: cleanCSVValue(columns[0] || ""),
-            significado: cleanCSVValue(columns[1] || "")
-        };
-    }).filter((item) => item.giria && item.significado);
+    totalTermos.textContent = "Arquivo não carregado";
+    faixaAtual.textContent = "Sem dados";
+    indicadorPagina.textContent = "Página 0 de 0";
+    atualizarBotoes();
 }
 
-function splitCSVLine(line) {
-    const result = [];
-    let current = "";
-    let insideQuotes = false;
+// Converte o conteúdo CSV em uma lista de termos válidos.
+function converterCsvParaTermos(textoCsv) {
+    const linhas = textoCsv
+        .trim()
+        .split(/\r?\n/)
+        .filter((linha) => linha.trim() !== "");
 
-    for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-        const nextChar = line[i + 1];
+    const linhasComDados = linhas.slice(1);
 
-        if (char === '"' && nextChar === '"') {
-            current += '"';
+    return linhasComDados
+        .map((linha) => {
+            const colunas = separarColunasCsv(linha);
+
+            return {
+                giria: limparValorCsv(colunas[0] || ""),
+                significado: limparValorCsv(colunas[1] || "")
+            };
+        })
+        .filter((item) => item.giria && item.significado);
+}
+
+// Separa uma linha CSV respeitando aspas e ponto e vírgula internos.
+function separarColunasCsv(linha) {
+    const resultado = [];
+    let atual = "";
+    let dentroDeAspas = false;
+
+    for (let i = 0; i < linha.length; i++) {
+        const caractere = linha[i];
+        const proximo = linha[i + 1];
+
+        if (caractere === '"' && proximo === '"') {
+            atual += '"';
             i++;
             continue;
         }
 
-        if (char === '"') {
-            insideQuotes = !insideQuotes;
+        if (caractere === '"') {
+            dentroDeAspas = !dentroDeAspas;
             continue;
         }
 
-        if (char === ";" && !insideQuotes) {
-            result.push(current);
-            current = "";
+        if (caractere === ";" && !dentroDeAspas) {
+            resultado.push(atual);
+            atual = "";
             continue;
         }
 
-        current += char;
+        atual += caractere;
     }
 
-    result.push(current);
-
-    return result;
+    resultado.push(atual);
+    return resultado;
 }
 
-function cleanCSVValue(value) {
-    return value.trim().replace(/^"|"$/g, "");
+// Limpa espaços e aspas excedentes do valor vindo do CSV.
+function limparValorCsv(valor) {
+    return valor.trim().replace(/^"|"$/g, "");
 }
 
-function renderBook() {
-    const totalSpreads = getTotalSpreads();
+// Renderiza as duas páginas visíveis e atualiza estado da navegação.
+function renderizarLivro() {
+    const totalAberturas = obterTotalAberturas();
 
-    if (currentSpread > totalSpreads - 1) {
-        currentSpread = Math.max(totalSpreads - 1, 0);
+    if (aberturaAtual > totalAberturas - 1) {
+        aberturaAtual = Math.max(totalAberturas - 1, 0);
     }
 
-    const start = currentSpread * itemsPerSpread;
-    const end = start + itemsPerSpread;
+    const indiceInicial = aberturaAtual * itensPorAbertura;
+    const indiceFinal = indiceInicial + itensPorAbertura;
 
-    const currentItems = filteredTerms.slice(start, end);
-    const leftItems = currentItems.slice(0, itemsPerSide);
-    const rightItems = currentItems.slice(itemsPerSide, itemsPerSpread);
+    const itensVisiveis = termosFiltrados.slice(indiceInicial, indiceFinal);
+    const itensEsquerda = itensVisiveis.slice(0, itensPorLado);
+    const itensDireita = itensVisiveis.slice(itensPorLado, itensPorAbertura);
 
-    const leftPage = currentSpread * 2 + 1;
-    const rightPage = leftPage + 1;
+    const paginaEsquerda = aberturaAtual * 2 + 1;
+    const paginaDireita = paginaEsquerda + 1;
 
-    leftPageTitle.textContent = getPageTitle(leftItems, "Gírias");
-    rightPageTitle.textContent = getPageTitle(rightItems, "Significados");
+    tituloPaginaEsquerda.textContent = obterTituloPagina(itensEsquerda, "Gírias");
+    tituloPaginaDireita.textContent = obterTituloPagina(itensDireita, "Significados");
 
-    leftPageContent.innerHTML = renderEntries(leftItems);
-    rightPageContent.innerHTML = renderEntries(rightItems);
+    conteudoPaginaEsquerda.innerHTML = renderizarEntradas(itensEsquerda);
+    conteudoPaginaDireita.innerHTML = renderizarEntradas(itensDireita);
 
-    leftPageNumber.textContent = leftPage;
-    rightPageNumber.textContent = rightPage;
+    numeroPaginaEsquerda.textContent = paginaEsquerda;
+    numeroPaginaDireita.textContent = paginaDireita;
 
-    const visibleStart = filteredTerms.length === 0 ? 0 : start + 1;
-    const visibleEnd = Math.min(end, filteredTerms.length);
+    const inicioVisivel = termosFiltrados.length === 0 ? 0 : indiceInicial + 1;
+    const fimVisivel = Math.min(indiceFinal, termosFiltrados.length);
 
-    totalTerms.textContent = `${filteredTerms.length} termo(s) encontrado(s)`;
-    currentRange.textContent = `${visibleStart} - ${visibleEnd} de ${filteredTerms.length}`;
+    totalTermos.textContent = `${termosFiltrados.length} termo(s) encontrado(s)`;
+    faixaAtual.textContent = `${inicioVisivel} - ${fimVisivel} de ${termosFiltrados.length}`;
+    indicadorPagina.textContent = `Página ${aberturaAtual + 1} de ${totalAberturas || 1}`;
 
-    pageIndicator.textContent = `Página ${currentSpread + 1} de ${totalSpreads || 1}`;
-
-    updateButtons();
+    atualizarBotoes();
 }
-//consideraçoes : 
-function renderEntries(items) {
-    if (items.length === 0) {
+
+// Monta o HTML de cada item exibido na página atual.
+function renderizarEntradas(itens) {
+    if (itens.length === 0) {
         return `
             <div class="empty-message">
-                Nenhuma gíria encontrada nesta página. 
+                Nenhuma gíria encontrada nesta página.
             </div>
         `;
     }
 
-    return items.map((item) => {
-        const tag = getTag(item.giria);
+    return itens
+        .map((item) => {
+            const tag = obterTagTermo(item.giria);
 
-        return `
-            <article class="dictionary-entry">
-                <h4 class="entry-term">${escapeHTML(item.giria)}</h4>
-                <p class="entry-meaning">${escapeHTML(item.significado)}</p>
-                <span class="entry-tag ${tag.className}">${tag.text}</span>
-            </article>
-        `;
-    }).join("");
+            return `
+                <article class="dictionary-entry">
+                    <h4 class="entry-term">${escaparHtml(item.giria)}</h4>
+                    <p class="entry-meaning">${escaparHtml(item.significado)}</p>
+                    <span class="entry-tag ${tag.className}">${tag.text}</span>
+                </article>
+            `;
+        })
+        .join("");
 }
 
-function getTag(term) {
-    const normalized = term.toLowerCase();
-
-    const brazilianizedPatterns = [
-        "ar",
-        "ear",
-        "izar"
-    ];
-
-    const hasBrazilianizedForm = brazilianizedPatterns.some((ending) => {
-        return normalized.endsWith(ending);
-    });
-
-    const hasSlashBrazilianized = normalized.includes("/ ") || normalized.includes("/");
-    const knownBrazilianized = [
+// Define a etiqueta visual do termo com base em padrões de abrasileiramento.
+function obterTagTermo(termo) {
+    const termoNormalizado = termo.toLowerCase();
+    const finaisAbrasileirados = ["ar", "ear", "izar"];
+    const possuiFinalAbrasileirado = finaisAbrasileirados.some((final) => termoNormalizado.endsWith(final));
+    const possuiBarra = termoNormalizado.includes("/ ") || termoNormalizado.includes("/");
+    const listaConhecida = [
         "dropar",
         "flopar",
         "ghostar",
@@ -209,10 +211,10 @@ function getTag(term) {
         "stalkear",
         "tankar",
         "moggar",
-        "viralizar",
+        "viralizar"
     ];
 
-    if (hasBrazilianizedForm || hasSlashBrazilianized || knownBrazilianized.some((word) => normalized.includes(word))) {
+    if (possuiFinalAbrasileirado || possuiBarra || listaConhecida.some((palavra) => termoNormalizado.includes(palavra))) {
         return {
             text: "forma abrasileirada",
             className: "brazilianized"
@@ -225,120 +227,129 @@ function getTag(term) {
     };
 }
 
-function getPageTitle(items, fallback) {
-    if (items.length === 0) {
-        return fallback;
+// Gera o título da página com intervalo de letras visível.
+function obterTituloPagina(itens, tituloPadrao) {
+    if (itens.length === 0) {
+        return tituloPadrao;
     }
 
-    const firstLetter = items[0].giria.charAt(0).toUpperCase();
-    const lastLetter = items[items.length - 1].giria.charAt(0).toUpperCase();
+    const primeiraLetra = itens[0].giria.charAt(0).toUpperCase();
+    const ultimaLetra = itens[itens.length - 1].giria.charAt(0).toUpperCase();
 
-    if (firstLetter === lastLetter) {
-        return `Letra ${firstLetter}`;
+    if (primeiraLetra === ultimaLetra) {
+        return `Letra ${primeiraLetra}`;
     }
 
-    return `${firstLetter} - ${lastLetter}`;
+    return `${primeiraLetra} - ${ultimaLetra}`;
 }
 
-function updateButtons() {
-    const totalSpreads = getTotalSpreads();
-    const isFirst = currentSpread === 0;
-    const isLast = currentSpread >= totalSpreads - 1 || totalSpreads === 0;
+// Habilita e desabilita botões conforme posição atual e animação.
+function atualizarBotoes() {
+    const totalAberturas = obterTotalAberturas();
+    const estaNoInicio = aberturaAtual === 0;
+    const estaNoFim = aberturaAtual >= totalAberturas - 1 || totalAberturas === 0;
 
-    prevPageButton.disabled = isFirst || isAnimating;
-    prevPageBottomButton.disabled = isFirst || isAnimating;
-    firstPageButton.disabled = isFirst || isAnimating;
+    botaoPaginaAnteriorTopo.disabled = estaNoInicio || animandoTroca;
+    botaoPaginaAnteriorRodape.disabled = estaNoInicio || animandoTroca;
+    botaoPrimeiraPagina.disabled = estaNoInicio || animandoTroca;
 
-    nextPageButton.disabled = isLast || isAnimating;
-    nextPageBottomButton.disabled = isLast || isAnimating;
-    lastPageButton.disabled = isLast || isAnimating;
+    botaoProximaPaginaTopo.disabled = estaNoFim || animandoTroca;
+    botaoProximaPaginaRodape.disabled = estaNoFim || animandoTroca;
+    botaoUltimaPagina.disabled = estaNoFim || animandoTroca;
 }
 
-function getTotalSpreads() {
-    return Math.ceil(filteredTerms.length / itemsPerSpread);
+// Calcula quantas aberturas (duas páginas) existem na listagem atual.
+function obterTotalAberturas() {
+    return Math.ceil(termosFiltrados.length / itensPorAbertura);
 }
 
-function nextPage() {
-    if (isAnimating || currentSpread >= getTotalSpreads() - 1) {
+// Avança uma abertura do livro quando possível.
+function irParaProximaPagina() {
+    if (animandoTroca || aberturaAtual >= obterTotalAberturas() - 1) {
         return;
     }
 
-    animatePage("next", () => {
-        currentSpread++;
-        renderBook();
+    animarTrocaPagina("next", () => {
+        aberturaAtual++;
+        renderizarLivro();
     });
 }
 
-function prevPage() {
-    if (isAnimating || currentSpread <= 0) {
+// Retorna uma abertura do livro quando possível.
+function irParaPaginaAnterior() {
+    if (animandoTroca || aberturaAtual <= 0) {
         return;
     }
 
-    animatePage("prev", () => {
-        currentSpread--;
-        renderBook();
+    animarTrocaPagina("prev", () => {
+        aberturaAtual--;
+        renderizarLivro();
     });
 }
 
-function goToFirstPage() {
-    if (isAnimating || currentSpread === 0) {
+// Navega para a primeira abertura do dicionário.
+function irParaPrimeiraPagina() {
+    if (animandoTroca || aberturaAtual === 0) {
         return;
     }
 
-    animatePage("prev", () => {
-        currentSpread = 0;
-        renderBook();
+    animarTrocaPagina("prev", () => {
+        aberturaAtual = 0;
+        renderizarLivro();
     });
 }
 
-function goToLastPage() {
-    const lastSpread = getTotalSpreads() - 1;
+// Navega para a última abertura disponível após filtro.
+function irParaUltimaPagina() {
+    const ultimaAbertura = obterTotalAberturas() - 1;
 
-    if (isAnimating || currentSpread === lastSpread) {
+    if (animandoTroca || aberturaAtual === ultimaAbertura) {
         return;
     }
 
-    animatePage("next", () => {
-        currentSpread = lastSpread;
-        renderBook();
+    animarTrocaPagina("next", () => {
+        aberturaAtual = ultimaAbertura;
+        renderizarLivro();
     });
 }
 
-function animatePage(direction, updateContentCallback) {
-    isAnimating = true;
-    updateButtons();
+// Executa a animação de virar página e sincroniza os estados.
+function animarTrocaPagina(direcao, aoAtualizarConteudo) {
+    animandoTroca = true;
+    atualizarBotoes();
 
-    const className = direction === "next" ? "flipping-next" : "flipping-prev";
-
-    book.classList.add(className);
+    const nomeClasse = direcao === "next" ? "flipping-next" : "flipping-prev";
+    livro.classList.add(nomeClasse);
 
     setTimeout(() => {
-        updateContentCallback();
+        aoAtualizarConteudo();
     }, 280);
 
     setTimeout(() => {
-        book.classList.remove(className);
-        isAnimating = false;
-        updateButtons();
+        livro.classList.remove(nomeClasse);
+        animandoTroca = false;
+        atualizarBotoes();
     }, 620);
 }
 
-function filterDictionary() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+// Filtra os termos por gíria ou significado conforme texto digitado.
+function filtrarDicionario() {
+    const termoBusca = campoBusca.value.trim().toLowerCase();
 
-    filteredTerms = allTerms.filter((item) => {
-        const giria = item.giria.toLowerCase();
-        const significado = item.significado.toLowerCase();
+    termosFiltrados = termosCompletos.filter((item) => {
+        const giriaNormalizada = item.giria.toLowerCase();
+        const significadoNormalizado = item.significado.toLowerCase();
 
-        return giria.includes(searchTerm) || significado.includes(searchTerm);
+        return giriaNormalizada.includes(termoBusca) || significadoNormalizado.includes(termoBusca);
     });
 
-    currentSpread = 0;
-    renderBook();
+    aberturaAtual = 0;
+    renderizarLivro();
 }
 
-function escapeHTML(text) {
-    return text
+// Escapa conteúdo textual para impedir injeção de HTML nas entradas.
+function escaparHtml(texto) {
+    return texto
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
@@ -346,25 +357,27 @@ function escapeHTML(text) {
         .replaceAll("'", "&#039;");
 }
 
-nextPageButton.addEventListener("click", nextPage);
-nextPageBottomButton.addEventListener("click", nextPage);
-
-prevPageButton.addEventListener("click", prevPage);
-prevPageBottomButton.addEventListener("click", prevPage);
-
-firstPageButton.addEventListener("click", goToFirstPage);
-lastPageButton.addEventListener("click", goToLastPage);
-
-searchInput.addEventListener("input", filterDictionary);
-
-document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
-        nextPage();
+// Trata atalhos de teclado para avançar e voltar páginas.
+function lidarComAtalhosTeclado(evento) {
+    if (evento.key === "ArrowRight") {
+        irParaProximaPagina();
     }
 
-    if (event.key === "ArrowLeft") {
-        prevPage();
+    if (evento.key === "ArrowLeft") {
+        irParaPaginaAnterior();
     }
-});
+}
 
-loadDictionary();
+botaoProximaPaginaTopo.addEventListener("click", irParaProximaPagina);
+botaoProximaPaginaRodape.addEventListener("click", irParaProximaPagina);
+
+botaoPaginaAnteriorTopo.addEventListener("click", irParaPaginaAnterior);
+botaoPaginaAnteriorRodape.addEventListener("click", irParaPaginaAnterior);
+
+botaoPrimeiraPagina.addEventListener("click", irParaPrimeiraPagina);
+botaoUltimaPagina.addEventListener("click", irParaUltimaPagina);
+
+campoBusca.addEventListener("input", filtrarDicionario);
+document.addEventListener("keydown", lidarComAtalhosTeclado);
+
+carregarDicionario();

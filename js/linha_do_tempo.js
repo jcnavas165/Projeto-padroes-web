@@ -1,126 +1,135 @@
-const timeline = document.querySelector(".timeline-vertical");
-const timelinePage = document.querySelector(".timeline-page");
-const events = document.querySelectorAll(".timeline-event");
+const linhaTempo = document.querySelector(".timeline-vertical");
+const eventosLinhaTempo = document.querySelectorAll(".timeline-event");
 
-const zoomInButton = document.getElementById("zoomIn");
-const zoomOutButton = document.getElementById("zoomOut");
-const resetButton = document.getElementById("resetTimeline");
+const botaoZoomMais = document.getElementById("zoomIn");
+const botaoZoomMenos = document.getElementById("zoomOut");
+const botaoReset = document.getElementById("resetTimeline");
 
-const zoomLabel = document.getElementById("zoomLabel");
-const zoomProgress = document.getElementById("zoomProgress");
+const rotuloZoom = document.getElementById("zoomLabel");
+const barraProgressoZoom = document.getElementById("zoomProgress");
 
-const periodButtons = document.querySelectorAll(".period-btn");
+const botoesPeriodo = document.querySelectorAll(".period-btn");
 
-let currentZoom = 0;
-let currentPeriod = "all";
-let wheelBlocked = false;
+let zoomAtual = 0;
+let periodoAtual = "all";
+let scrollBloqueado = false;
 
-const zoomTexts = [
+const textosZoom = [
     "Visão geral",
     "Zoom médio: eventos principais",
     "Zoom máximo: detalhes e palavras"
 ];
 
-function updateTimeline() {
-    timeline.dataset.zoom = currentZoom;
+// Atualiza o estado visual da linha do tempo conforme zoom e período selecionados.
+function atualizarLinhaDoTempo() {
+    linhaTempo.dataset.zoom = zoomAtual;
 
-    events.forEach((event) => {
-        const eventLevel = Number(event.dataset.level);
-        const eventPeriod = event.dataset.period;
+    eventosLinhaTempo.forEach((evento) => {
+        const nivelEvento = Number(evento.dataset.level);
+        const periodoEvento = evento.dataset.period;
 
-        const visibleByZoom = eventLevel <= currentZoom;
-        const visibleByPeriod = currentPeriod === "all" || eventPeriod === currentPeriod;
+        const visivelPorZoom = nivelEvento <= zoomAtual;
+        const visivelPorPeriodo = periodoAtual === "all" || periodoEvento === periodoAtual;
 
-        event.hidden = !(visibleByZoom && visibleByPeriod);
+        evento.hidden = !(visivelPorZoom && visivelPorPeriodo);
     });
 
-    zoomLabel.textContent = zoomTexts[currentZoom];
-    zoomProgress.style.width = `${currentZoom * 50}%`;
+    rotuloZoom.textContent = textosZoom[zoomAtual];
+    barraProgressoZoom.style.width = `${zoomAtual * 50}%`;
 
-    periodButtons.forEach((button) => {
-        const isActive = button.dataset.period === currentPeriod;
-        button.classList.toggle("active", isActive);
+    botoesPeriodo.forEach((botao) => {
+        const ativo = botao.dataset.period === periodoAtual;
+        botao.classList.toggle("active", ativo);
     });
 }
 
-function zoomIn() {
-    if (currentZoom < 2) {
-        currentZoom++;
-        updateTimeline();
+// Aumenta o nível de zoom, respeitando o limite máximo.
+function aumentarZoom() {
+    if (zoomAtual < 2) {
+        zoomAtual++;
+        atualizarLinhaDoTempo();
         return true;
     }
 
     return false;
 }
 
-function zoomOut() {
-    if (currentZoom > 0) {
-        currentZoom--;
-        updateTimeline();
+// Diminui o nível de zoom, respeitando o limite mínimo.
+function diminuirZoom() {
+    if (zoomAtual > 0) {
+        zoomAtual--;
+        atualizarLinhaDoTempo();
         return true;
     }
 
     return false;
 }
 
-zoomInButton.addEventListener("click", () => {
-    zoomIn();
-});
+// Restaura os filtros padrão da linha do tempo.
+function resetarLinhaDoTempo() {
+    zoomAtual = 0;
+    periodoAtual = "all";
+    atualizarLinhaDoTempo();
+}
 
-zoomOutButton.addEventListener("click", () => {
-    zoomOut();
-});
+// Define o período ativo e ajusta o zoom mínimo quando necessário.
+function selecionarPeriodo(periodo) {
+    periodoAtual = periodo;
 
-resetButton.addEventListener("click", () => {
-    currentZoom = 0;
-    currentPeriod = "all";
-    updateTimeline();
-});
+    if (periodoAtual !== "all" && zoomAtual === 0) {
+        zoomAtual = 1;
+    }
 
-periodButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        currentPeriod = button.dataset.period;
+    atualizarLinhaDoTempo();
+}
 
-        if (currentPeriod !== "all" && currentZoom === 0) {
-            currentZoom = 1;
-        }
-
-        updateTimeline();
-    });
-});
-
-/*
-    Zoom com o scroll do mouse.
-
-    Scroll para cima: aumenta o zoom.
-    Scroll para baixo: diminui o zoom.
-
-    O preventDefault só acontece quando o zoom realmente muda.
-    Assim, quando chegar no zoom máximo ou mínimo, a página continua rolando normalmente.
-*/
-timeline.addEventListener("wheel", (event) => {
-    if (wheelBlocked) {
-        event.preventDefault();
+// Aplica zoom com a roda do mouse sem impedir rolagem fora dos limites.
+function lidarComScrollZoom(evento) {
+    if (scrollBloqueado) {
+        evento.preventDefault();
         return;
     }
 
-    let zoomChanged = false;
+    let zoomAlterado = false;
 
-    if (event.deltaY < 0) {
-        zoomChanged = zoomIn();
-    } else if (event.deltaY > 0) {
-        zoomChanged = zoomOut();
+    if (evento.deltaY < 0) {
+        zoomAlterado = aumentarZoom();
+    } else if (evento.deltaY > 0) {
+        zoomAlterado = diminuirZoom();
     }
 
-    if (zoomChanged) {
-        event.preventDefault();
-
-        wheelBlocked = true;
-
-        setTimeout(() => {
-            wheelBlocked = false;
-        }, 450);
+    if (!zoomAlterado) {
+        return;
     }
-}, { passive: false });
 
-updateTimeline();
+    evento.preventDefault();
+    scrollBloqueado = true;
+
+    setTimeout(() => {
+        scrollBloqueado = false;
+    }, 450);
+}
+
+// Trata clique para aumentar o zoom.
+function aoClicarZoomMais() {
+    aumentarZoom();
+}
+
+// Trata clique para diminuir o zoom.
+function aoClicarZoomMenos() {
+    diminuirZoom();
+}
+
+botaoZoomMais.addEventListener("click", aoClicarZoomMais);
+botaoZoomMenos.addEventListener("click", aoClicarZoomMenos);
+botaoReset.addEventListener("click", resetarLinhaDoTempo);
+
+botoesPeriodo.forEach((botao) => {
+    botao.addEventListener("click", () => {
+        selecionarPeriodo(botao.dataset.period);
+    });
+});
+
+linhaTempo.addEventListener("wheel", lidarComScrollZoom, { passive: false });
+
+atualizarLinhaDoTempo();
