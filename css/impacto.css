@@ -1,84 +1,385 @@
-.bloco-imagem-esquerda {
+.impacto-page {
     display: flex;
-    align-items: flex-start;
-    gap: 30px;
-    margin-bottom: 50px;
+    flex-direction: column;
+    gap: 34px;
+    background: #fdfdfd;
 }
 
-.bloco-imagem-esquerda .imagem-placeholder {
-    width: 260px;
-    flex-shrink: 0;
-}
-
-.bloco-imagem-esquerda .conteudo-texto {
-    flex: 1;
-}
-
-.bloco-imagem-direita {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 40px;
-}
-
-.bloco-imagem-direita .imagem-grafico {
-    width: 320px;
-}
-
-.imagem-placeholder img {
+.impacto-page > * {
     width: 100%;
-    height: auto;
-    display: block;
-    border: 2px solid #000000;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.data-publicacao {
-    display: block;
-    font-size: 14px;
-    font-style: italic;
-    color: #444;
-    margin-bottom: 5px;
+.impacto-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
-.conteudo-texto h2 {
-    font-size: 28px;
-    line-height: 1.2;
-    margin-bottom: 15px;
-    color: #2E5E3E;
+.impacto-data-publicacao {
+    display: inline-block;
+    width: fit-content;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    font-size: 12px;
     font-weight: 800;
 }
 
-.conteudo-texto p {
-    font-size: 15px;
-    line-height: 1.8;
+.impacto-section-title {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(233, 185, 73, 0.45);
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    line-height: 1.25;
+    color: var(--verde-principal);
+}
+
+.impacto-text {
+    color: var(--texto-secundario);
+    font-size: 16px;
+    line-height: 1.75;
     text-align: justify;
-    color: #5F5F5F;
 }
 
-.imagem-grafico h2 {
-    font-size: 28px;
-    line-height: 1.2;
-    margin-bottom: 15px;
+.impacto-subtitle {
+    margin-bottom: 10px;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    line-height: 1.35;
+    color: var(--verde-escuro);
+}
+
+.impacto-mini-title {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-size: 18px;
     font-weight: 800;
+    color: var(--verde-principal);
+}
+
+.impacto-data-list {
+    padding-left: 22px;
+}
+
+.impacto-data-list li {
+    margin-bottom: 10px;
+    color: var(--texto-secundario);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.impacto-data-list a,
+.impacto-referencias a {
+    color: var(--verde-principal);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.impacto-chart-card {
+    padding: 24px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(46, 94, 62, 0.08), rgba(233, 185, 73, 0.18)), #ffffff;
+    border: 1px solid rgba(31, 63, 43, 0.14);
+    box-shadow: 0 8px 22px rgba(31, 63, 43, 0.10);
+}
+
+.impacto-chart-title {
+    margin-bottom: 10px;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    color: var(--verde-escuro);
+}
+
+.impacto-chart-caption {
+    margin-bottom: 18px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.impacto-figure {
+    margin: 0;
+}
+
+.impacto-axis-header {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(31, 63, 43, 0.16);
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--verde-escuro);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.impacto-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.impacto-bars-academico {
+    padding: 14px;
+    border: 1px solid rgba(31, 63, 43, 0.12);
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.impacto-bar-row {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.impacto-bar-row span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--verde-escuro);
+}
+
+.impacto-bar-track {
+    height: 18px;
+    border-radius: 4px;
+    background: rgba(31, 63, 43, 0.14);
+    overflow: hidden;
+    border: 1px solid rgba(31, 63, 43, 0.20);
+    background-image: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 9.5%,
+        rgba(31, 63, 43, 0.09) 10%
+    );
+}
+
+.impacto-bar-fill {
+    height: 100%;
+    width: var(--valor);
+    border-radius: 2px;
+    background: #2e5e3e;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+}
+
+.impacto-bar-fill strong {
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+.impacto-comparison-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid rgba(31, 63, 43, 0.12);
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.impacto-comparison-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.impacto-comparison-row span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--verde-escuro);
+}
+
+.impacto-comparison-track {
+    height: 18px;
+    border-radius: 4px;
+    background: rgba(31, 63, 43, 0.12);
+    border: 1px solid rgba(31, 63, 43, 0.20);
+    overflow: hidden;
+    background-image: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 9.5%,
+        rgba(31, 63, 43, 0.09) 10%
+    );
+}
+
+.impacto-comparison-fill {
+    height: 100%;
+    width: var(--valor);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+}
+
+.impacto-comparison-fill strong {
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.impacto-comparison-row.ganho .impacto-comparison-fill {
+    background: #2e5e3e;
+}
+
+.impacto-comparison-row.risco .impacto-comparison-fill {
+    background: #7f5a00;
+}
+
+.impacto-legenda {
+    margin: 12px 0 0;
+    padding-left: 18px;
+}
+
+.impacto-legenda li {
+    margin-bottom: 6px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.impacto-fonte {
+    margin-top: 10px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.impacto-chart-analysis {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--dourado-principal);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--texto-secundario);
+    font-size: 14px;
+    line-height: 1.65;
+    text-align: justify;
+}
+
+.impacto-formula-box {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border: 1px solid rgba(31, 63, 43, 0.20);
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.impacto-formula-title {
+    margin-bottom: 6px;
+    color: var(--verde-escuro);
+    font-size: 13px;
+}
+
+.impacto-formula {
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: rgba(221, 235, 221, 0.55);
+    color: var(--texto-principal);
+    font-size: 14px;
+    font-weight: 800;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+.impacto-formula-desc {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.impacto-referencias ul {
+    padding-left: 20px;
+}
+
+.impacto-referencias li {
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--texto-secundario);
 }
 
 @media (max-width: 900px) {
-
-    .bloco-imagem-esquerda {
-        flex-direction: column;
+    .impacto-page {
+        gap: 24px;
+        padding: 22px;
     }
 
-    .bloco-imagem-direita {
-        justify-content: center;
+    .impacto-section-title {
+        font-size: 25px;
     }
 
-    .bloco-imagem-esquerda .imagem-placeholder,
-    .bloco-imagem-direita .imagem-grafico {
-        width: 100%;
-        max-width: 320px;
+    .impacto-text {
+        text-align: left;
     }
 
-    .conteudo-texto h2,
-    .imagem-grafico h2 {
-        font-size: 24px;
+    .impacto-bar-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .impacto-axis-header {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .impacto-comparison-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .impacto-page {
+        width: min(94%, 1400px);
+        padding: 18px;
+        margin: 30px auto;
+    }
+
+    .impacto-section-title {
+        font-size: 21px;
+    }
+
+    .impacto-text {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .impacto-chart-analysis {
+        text-align: left;
+    }
+
+    .impacto-formula-desc {
+        text-align: left;
+    }
+
+    .impacto-chart-card {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .impacto-chart-title {
+        font-size: 18px;
+    }
+
+    .impacto-bars-academico,
+    .impacto-comparison-grid {
+        padding: 10px;
     }
 }
