@@ -72,6 +72,9 @@
 }
 
 .quiz-opcao {
+    width: 100%;
+    display: block;
+    text-align: left;
     padding: 13px 18px;
     border-radius: 8px;
     border: 2px solid #D8D8D8;
@@ -88,6 +91,11 @@
     border-color: var(--dourado-principal);
     background: var(--dourado-hover);
     transform: translateX(4px);
+}
+
+.quiz-opcao:focus-visible {
+    outline: 3px solid var(--verde-principal);
+    outline-offset: 2px;
 }
 
 .quiz-opcao.selecionada {
@@ -114,6 +122,10 @@
 .quiz-opcao.bloqueada {
     cursor: default;
     transform: none;
+}
+
+.quiz-opcao:disabled {
+    opacity: 1;
 }
 
 .quiz-resultado {

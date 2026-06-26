@@ -1,36 +1,112 @@
-const perguntas = [
-    {
-        pergunta: "O que significa a gíria 'red flag' no contexto das redes sociais?",
-        opcoes: [
-            "Sinal de alerta sobre algo tóxico ou problemático",
-            "Conquista especial em um jogo online",
-            "Foto ou vídeo que viralizou na internet",
-            "Estilo visual com cores vibrantes e chamativas"
-        ],
-        resposta: 0
-    },
-    {
-        pergunta: "Quando alguém diz que sofreu 'ghosting', o que aconteceu?",
-        opcoes: [
-            "Recebeu muitos elogios de uma vez",
-            "Teve seu perfil hackeado nas redes sociais",
-            "Alguém sumiu sem explicação e parou de responder",
-            "Foi exposto publicamente com informações falsas"
-        ],
-        resposta: 2
+//Configuração
+const CSV_PATH = '../js/girias_csv.txt';
+const NUM_PERGUNTAS = 5;
+const NUM_OPCOES = 4;
+
+//Estado do quiz
+let todasGirias = [];
+let perguntas   = [];
+let indexAtual  = 0;
+let respostas   = [];
+let confirmadas = [];
+
+
+//Carregamento do CSV
+
+function parseLinhaCSV(linha) {
+    const campos = [];
+    let campoAtual = '';
+    let dentroDeAspas = false;
+
+    for (let i = 0; i < linha.length; i++) {
+        const char = linha[i];
+
+        if (char === '"') {
+            dentroDeAspas = !dentroDeAspas;
+            continue;
+        }
+
+        if (char === ';' && !dentroDeAspas) {
+            campos.push(campoAtual);
+            campoAtual = '';
+            continue;
+        }
+
+        campoAtual += char;
     }
-];
-
-
-let indexAtual   = 0;
-let respostas    = [];
-let confirmadas  = [];
-
-for (let i = 0; i < perguntas.length; i++) {
-    respostas.push(null);
-    confirmadas.push(false);
+    campos.push(campoAtual);
+    return campos;
 }
 
+async function carregarGirias() {
+    const resposta = await fetch(CSV_PATH);
+
+    if (!resposta.ok) {
+        throw new Error('Não foi possível carregar ' + CSV_PATH);
+    }
+
+    const texto  = await resposta.text();
+    const linhas = texto.trim().split('\n').filter(function(l) {
+        return l.trim() !== '';
+    });
+
+    linhas.shift();
+
+    return linhas.map(function(linha) {
+        const campos = parseLinhaCSV(linha.trim());
+        return {
+            giria: campos[0].trim(),
+            significado: campos[1].trim()
+        };
+    });
+}
+
+
+//geração das perguntas aleatórias
+
+function embaralhar(array) {
+    const copia = array.slice();
+    for (let i = copia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = copia[i];
+        copia[i] = copia[j];
+        copia[j] = tmp;
+    }
+    return copia;
+}
+
+function gerarPerguntas(girias) {
+    const selecionadas = embaralhar(girias).slice(0, NUM_PERGUNTAS);
+
+    return selecionadas.map(function(item) {
+        const formatoInvertido = Math.random() < 0.5;
+
+        const pool = girias.filter(function(g) {
+            return g.giria !== item.giria;
+        });
+        const distratores = embaralhar(pool).slice(0, NUM_OPCOES - 1);
+
+        const respostaCorreta = formatoInvertido ? item.giria : item.significado;
+
+        const opcoes = distratores.map(function(d) {
+            return formatoInvertido ? d.giria : d.significado;
+        });
+        opcoes.push(respostaCorreta);
+
+        const opcoesEmbaralhadas = embaralhar(opcoes);
+
+        return {
+            pergunta: formatoInvertido
+                ? 'Qual gíria tem o seguinte significado: "' + item.significado + '"?'
+                : "O que significa a gíria '" + item.giria + "'?",
+            opcoes: opcoesEmbaralhadas,
+            resposta: opcoesEmbaralhadas.indexOf(respostaCorreta)
+        };
+    });
+}
+
+
+//Renderização
 
 function renderizar() {
     const p = perguntas[indexAtual];
@@ -44,30 +120,36 @@ function renderizar() {
     lista.innerHTML = '';
 
     p.opcoes.forEach(function(texto, i) {
-        const li = document.createElement('li');
-        li.classList.add('quiz-opcao');
-        li.textContent = texto;
+        const li  = document.createElement('li');
+        const btn = document.createElement('button');
+
+        btn.type = 'button';
+        btn.classList.add('quiz-opcao');
+        btn.textContent = texto;
 
         if (respostas[indexAtual] === i) {
-            li.classList.add('selecionada');
+            btn.classList.add('selecionada');
         }
 
         if (confirmadas[indexAtual]) {
-            li.classList.add('bloqueada');
+            btn.classList.add('bloqueada');
+            btn.disabled = true;
+
             if (i === p.resposta) {
-                li.classList.add('correta');
+                btn.classList.add('correta');
             } else if (respostas[indexAtual] === i) {
-                li.classList.add('errada');
+                btn.classList.add('errada');
             }
         }
 
-        li.addEventListener('click', function() {
+        btn.addEventListener('click', function() {
             if (!confirmadas[indexAtual]) {
                 respostas[indexAtual] = i;
                 renderizar();
             }
         });
 
+        li.appendChild(btn);
         lista.appendChild(li);
     });
 
@@ -138,33 +220,50 @@ function mostrarResultado() {
     } else if (acertos >= 1) {
         texto.textContent = 'Quase lá! Consulte o Dicionário de Gírias e tente novamente.';
     } else {
-        
         texto.textContent = 'Que tal dar uma olhada no Dicionário de Gírias antes de tentar de novo?';
     }
 
     document.getElementById('btn-anterior').style.display  = 'none';
     document.getElementById('btn-confirmar').style.display = 'none';
-    document.getElementById('btn-proxima').textContent     = ' Tentar novamente';
+    document.getElementById('btn-proxima').textContent     = 'Tentar novamente';
     document.getElementById('btn-proxima').onclick         = reiniciar;
 }
 
-function reiniciar() {
-    indexAtual = 0;
 
-    for (let i = 0; i < perguntas.length; i++) {
-        respostas[i]   = null;
-        confirmadas[i] = false;
+//Inicialização / reinício
+
+async function iniciarQuiz() {
+    document.getElementById('texto-pergunta').textContent = 'Carregando perguntas...';
+    document.getElementById('lista-opcoes').innerHTML = '';
+
+    try {
+        if (todasGirias.length === 0) {
+            todasGirias = await carregarGirias();
+        }
+
+        perguntas   = gerarPerguntas(todasGirias);
+        respostas   = perguntas.map(function() { return null; });
+        confirmadas = perguntas.map(function() { return false; });
+        indexAtual  = 0;
+
+        document.getElementById('tela-pergunta').style.display  = '';
+        document.getElementById('tela-resultado').style.display = 'none';
+
+        document.getElementById('btn-anterior').style.display  = '';
+        document.getElementById('btn-confirmar').style.display = '';
+        document.getElementById('btn-proxima').textContent     = 'Próxima →';
+        document.getElementById('btn-proxima').onclick         = function() { irPara(1); };
+
+        renderizar();
+    } catch (erro) {
+        document.getElementById('texto-pergunta').textContent =
+            'Erro ao carregar as perguntas. Verifique se "' + CSV_PATH + '" está no caminho correto.';
+        console.error(erro);
     }
-
-    document.getElementById('tela-pergunta').style.display  = '';
-    document.getElementById('tela-resultado').style.display = 'none';
-
-    document.getElementById('btn-anterior').style.display  = '';
-    document.getElementById('btn-confirmar').style.display = '';
-    document.getElementById('btn-proxima').textContent     = 'Próxima →';
-    document.getElementById('btn-proxima').onclick         = function() { irPara(1); };
-
-    renderizar();
 }
 
-renderizar();
+function reiniciar() {
+    iniciarQuiz();
+}
+
+iniciarQuiz();
