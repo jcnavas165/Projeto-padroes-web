@@ -1,9 +1,11 @@
 const palavrasBase = [
-    { word: "like", weight: 9 },
+    { word: "like", weight: 12 },
+    { word: "story", weight: 10 },
+    { word: "post", weight: 10 },
     { word: "vibe", weight: 7 },
-    { word: "hype", weight: 6 },
+    { word: "hype", weight: 7 },
     { word: "cringe", weight: 4 },
-    { word: "farmar", weight: 3 }
+    { word: "farmar", weight: 4 }
 ];
 
 const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52", "#D4A820"];
@@ -40,7 +42,6 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
         return hash;
     }
 
-    // Cria um gerador pseudoaleatório determinístico com base na semente.
     function criarGeradorPseudoAleatorio(semente) {
         let estado = semente >>> 0;
 
@@ -50,7 +51,6 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
         };
     }
 
-    // Retorna os atributos visuais fixos de uma palavra para manter consistência entre renders.
     function obterEsteticaPalavra(chave) {
         if (cacheEstetica.has(chave)) {
             return cacheEstetica.get(chave);
@@ -67,7 +67,12 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
         return estetica;
     }
 
-    // Consolida palavras-base e termos do usuário em uma lista única ordenada por peso.
+    const LIMITE_PALAVRAS_USUARIO = 20;
+    const COMPRIMENTO_MINIMO = 2;
+    // Permite letras (incluindo acentuadas), hífens e apóstrofos, bloqueia scripts e caracteres especiais.
+    const PADRAO_PERMITIDO = /^[\p{L}\p{M}'\-]+$/u;
+
+
     function montarListaPalavras() {
         const mapaPalavras = new Map();
 
@@ -229,6 +234,30 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
         }
     }
 
+    // Exibe mensagem de erro inline abaixo do campo de entrada.
+    function exibirMensagemErro(mensagem) {
+        let alerta = campoPalavra?.parentElement?.parentElement?.querySelector(".ctx-wordcloud-error");
+
+        if (!alerta) {
+            alerta = document.createElement("p");
+            alerta.className = "ctx-wordcloud-error";
+            alerta.setAttribute("role", "alert");
+            campoPalavra.parentElement.parentElement.insertBefore(
+                alerta,
+                campoPalavra.parentElement.nextSibling
+            );
+        }
+
+        alerta.textContent = mensagem;
+    }
+
+    // Remove mensagem de erro inline.
+    function limparMensagemErro() {
+        campoPalavra?.parentElement?.parentElement
+            ?.querySelector(".ctx-wordcloud-error")
+            ?.remove();
+    }
+
     // Inclui palavra digitada, ajusta pesos e atualiza a nuvem.
     function adicionarPalavra() {
         if (!campoPalavra) {
@@ -241,7 +270,31 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
             return;
         }
 
+        // Validação: comprimento mínimo.
+        if (valor.length < COMPRIMENTO_MINIMO) {
+            exibirMensagemErro(`A palavra deve ter pelo menos ${COMPRIMENTO_MINIMO} caracteres.`);
+            return;
+        }
+
+        // Validação: apenas letras (incluindo acentuadas), hífens e apóstrofos.
+        if (!PADRAO_PERMITIDO.test(valor)) {
+            exibirMensagemErro("Use apenas letras, hífens ou apóstrofos.");
+            return;
+        }
+
         const chave = valor.toLowerCase();
+
+        // Validação: limite de palavras novas do usuário.
+        const totalNovos = [...pesosUsuario.keys()].filter(
+            (c) => !palavrasBase.some((p) => p.word.toLowerCase() === c)
+        ).length;
+
+        if (!pesosUsuario.has(chave) && !palavrasBase.some((p) => p.word.toLowerCase() === chave) && totalNovos >= LIMITE_PALAVRAS_USUARIO) {
+            exibirMensagemErro(`Limite de ${LIMITE_PALAVRAS_USUARIO} palavras atingido.`);
+            return;
+        }
+
+        limparMensagemErro();
 
         if (pesosUsuario.has(chave)) {
             pesosUsuario.set(chave, Math.min(pesosUsuario.get(chave) + 3, 15));
@@ -255,7 +308,7 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
             }
         } else {
             const existeNaBase = palavrasBase.some((palavra) => palavra.word.toLowerCase() === chave);
-            pesosUsuario.set(chave, existeNaBase ? 3 : 5);
+            pesosUsuario.set(chave, existeNaBase ? 3 : 1);
 
             if (containerTags) {
                 criarTagPalavra(valor, chave);

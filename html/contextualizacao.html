@@ -35,68 +35,98 @@
 
     <main class="page-container ctx-page">
 
-        <!-- Seção 1: Evolução do Vocabulário -->
-        <h2 class="ctx-section-title">Evolução do Vocabulário popular ao longo das Gerações</h2>
+        <!-- ── Seção 1: Evolução do Vocabulário ── -->
+        <section class="ctx-section">
+            <h2 class="ctx-section-title">Evolução do Vocabulário popular ao longo das Gerações</h2>
 
-        <p class="ctx-text">
-            Nesta sessão deve haver um texto introdutório que contextualize a evolução do vocabulário popular ao longo
-            das gerações, destacando as principais mudanças e influências que moldaram a linguagem cotidiana. O texto
-            deve abordar como as transformações sociais, culturais e tecnológicas impactaram o vocabulário, trazendo
-            exemplos de palavras e expressões que surgiram ou caíram em desuso ao longo do tempo. Além disso, o conteúdo
-            deve destacar a importância de compreender essas mudanças para entender a dinâmica da linguagem e sua
-            relação com a sociedade. O texto deve ser informativo, envolvente e acessível, proporcionando uma visão
-            geral clara e concisa sobre a evolução do vocabulário popular.
-        </p>
+            <p class="ctx-text">
+                A língua é um organismo vivo: ela nasce, cresce, se transforma e, muitas vezes, deixa para trás palavras
+                que um dia foram indispensáveis. Ao longo das gerações, o vocabulário popular brasileiro passou por
+                ondas sucessivas de renovação, impulsionadas por mudanças sociais, políticas, culturais e, mais
+                recentemente, tecnológicas. Gírias que definiram a identidade de jovens nos anos 50, como
+                <em>bacana</em> e <em>maneiro</em>  convivem hoje com expressões nascidas em
+                servidores de jogos online e em salas de bate-papo digitais.
+            </p>
 
-        <p class="ctx-text">
-            Logo após o texto, deve haver um vídeo incorporado que ilustre o impacto da Internet no vocabulário das gerações atuais, trazendo exemplos de palavras e expressões que surgiram ou se popularizaram com a influência da comunicação digital.
-        </p>
+            <p class="ctx-text">
+                Cada geração forja seu próprio repertório como marca de pertencimento: falar como os de sua turma é
+                sinalizar identidade, valores e visão de mundo. Os anos 1980 trouxeram o <em>coroa</em>, o
+                <em>barra-pesada</em> e o <em>supimpa</em>; os 1990 popularizaram <em>da hora</em>, <em>mó</em> e
+                <em>firmeza</em>; os 2000 digitalizaram tudo isso com o <em>vc</em>, o <em>hj</em> e o inconfundível
+                <em>rsrs</em>. Compreender esse percurso é entender como a sociedade pensa, ri e se reinventa, porque
+                antes de qualquer mudança cultural acontecer nas ruas ou nas telas, ela já se manifesta nas palavras.
+            </p>
 
-        <!-- Vídeo incorporado -->
-        <div class="ctx-video-wrapper">
-            <iframe class="ctx-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Evolução do vocabulário popular ao longo das gerações"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <!-- Seção 2: Gerações atuais e a Internet -->
-        <h2 class="ctx-section-title">Gerações atuais e o impacto da Internet no Vocabulário</h2>
-
-        <p class="ctx-text">
-            Nesta sessão, será abordado o impacto positivo e negativo da influência da Internet no vocabulário das
-            gerações atuais. O texto deve destacar como a comunicação digital, as redes sociais e os aplicativos de
-            mensagens têm moldado a linguagem cotidiana, trazendo novas palavras, expressões e formas de comunicação.
-            Além disso, o conteúdo deve discutir os desafios e as oportunidades que surgem com essa influência, como a
-            evolução do vocabulário, a adaptação às novas formas de comunicação e a preservação da riqueza linguística.
-            O texto deve ser informativo, equilibrado e acessível, proporcionando uma visão abrangente sobre o impacto
-            da Internet no vocabulário das gerações atuais.
-        </p>
-
-        <!-- Nuvem de palavras -->
-        <div class="ctx-wordcloud-wrapper">
-            <h3 class="ctx-wordcloud-title">Quais palavras estrangeiras você usa no dia a dia?</h3>
-
-            <!-- Input para adicionar palavras -->
-            <div class="ctx-wordcloud-input-area">
-                <div class="ctx-wordcloud-input-row">
-                    <input type="text" id="wordInput" class="ctx-wordcloud-input"
-                        placeholder="Digite uma palavra estrangeira..." maxlength="30" autocomplete="off"
-                        spellcheck="false">
-                    <button type="button" id="addWordBtn" class="ctx-wordcloud-btn">
-                        Adicionar
-                    </button>
+            <!-- Container do vídeo -->
+            <div class="ctx-card ctx-card--video">
+                <div class="ctx-card__label">
+                    <span class="ctx-card__icon" aria-hidden="true">▶</span>
+                    Assista: a evolução do vocabulário popular nas gerações
                 </div>
-                <p class="ctx-wordcloud-hint">
-                    Pressione <kbd>Enter</kbd> ou clique em <strong>Adicionar</strong> para incluir sua palavra na
-                    nuvem.
+                <div class="ctx-video-wrapper">
+                    <iframe class="ctx-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Evolução do vocabulário popular ao longo das gerações"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Seção 2: Gerações atuais e a Internet (card completo) ── -->
+        <div class="ctx-card ctx-card--wordcloud">
+
+            <div class="ctx-card__body">
+                <h2 class="ctx-section-title">Gerações atuais e o impacto da Internet no Vocabulário</h2>
+
+                <p class="ctx-text">
+                    A popularização da internet nas últimas duas décadas acelerou de forma sem precedentes a velocidade
+                    com que novas palavras surgem, se disseminam e caem em desuso. Plataformas como Twitter, TikTok e
+                    Discord funcionam como laboratórios linguísticos em tempo real: uma expressão criada num meme às 22h
+                    pode estar no vocabulário de milhões de jovens até o meio-dia seguinte. Termos como <em>stan</em>,
+                    <em>ghostar</em>, <em>cringe</em> e <em>vibe</em> chegaram ao português importados do inglês
+                    digital, mas já sofreram adaptações fonéticas e semânticas que os tornam genuinamente brasileiros.
                 </p>
-                <div id="userTagsContainer" class="ctx-user-tags" role="region" aria-label="Palavras adicionadas"
-                    aria-live="polite"></div>
+
+                <p class="ctx-text">
+                    Essa influência, porém, é de mão dupla. Se de um lado a internet expõe os falantes a vocabulários
+                    globais, sobretudo do inglês norte-americano, de outro ela também revitaliza expressões regionais
+                    e populares que antes ficavam restritas a comunidades locais. O desafio está em equilibrar a
+                    abertura ao novo com a preservação da riqueza linguística já existente, reconhecendo que cada
+                    empréstimo lexical carrega, junto com a palavra, fragmentos de outra cultura e visão de mundo.
+                </p>
             </div>
 
-            <canvas id="wordCloudCanvas"></canvas>
+            <!-- Divisor interno -->
+            <div class="ctx-card__divider">
+                <span class="ctx-card__icon" aria-hidden="true">☁</span>
+                Interaja: adicione palavras estrangeiras que você usa no dia a dia
+            </div>
+
+            <!-- Nuvem de palavras -->
+            <div class="ctx-wordcloud-wrapper">
+                <h3 class="ctx-wordcloud-title">Quais palavras estrangeiras você usa no dia a dia?</h3>
+
+                <div class="ctx-wordcloud-input-area">
+                    <div class="ctx-wordcloud-input-row">
+                        <input type="text" id="wordInput" class="ctx-wordcloud-input"
+                            placeholder="Digite uma palavra estrangeira..." maxlength="30" autocomplete="off"
+                            spellcheck="false">
+                        <button type="button" id="addWordBtn" class="ctx-wordcloud-btn">
+                            Adicionar
+                        </button>
+                    </div>
+                    <p class="ctx-wordcloud-hint">
+                        Pressione <kbd>Enter</kbd> ou clique em <strong>Adicionar</strong> para incluir sua palavra na
+                        nuvem.
+                    </p>
+                    <div id="userTagsContainer" class="ctx-user-tags" role="region" aria-label="Palavras adicionadas"
+                        aria-live="polite"></div>
+                </div>
+
+                <canvas id="wordCloudCanvas"></canvas>
+            </div>
+
         </div>
 
     </main>
