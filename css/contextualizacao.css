@@ -1,20 +1,16 @@
-/* Página de contextualização */
+/* ── Página de contextualização ── */
 .ctx-page {
     display: flex;
     flex-direction: column;
-    gap: 34px;
-    background:
-        #FDFDFD;
+    gap: 64px;
+    background: #FDFDFD;
 }
 
-.ctx-page .ctx-section-title {
-    text-align: center;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.ctx-page > * {
+/* Cada seção temática */
+.ctx-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     max-width: 1080px;
     width: 100%;
     margin-left: auto;
@@ -22,34 +18,99 @@
 }
 
 .ctx-section-title {
-    margin-bottom: 18px;
+    margin-bottom: 4px;
     padding-bottom: 12px;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
     font-size: 30px;
     line-height: 1.25;
     color: var(--verde-principal);
     border-bottom: 2px solid rgba(233, 185, 73, 0.45);
+    text-align: center;
 }
 
 .ctx-text {
     max-width: 920px;
-    margin-bottom: 14px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     color: var(--texto-secundario);
     font-size: 16px;
     line-height: 1.75;
     text-align: justify;
 }
 
-/* Vídeo */
-.ctx-video-wrapper {
-    width: min(100%, 860px);
-    margin: 28px auto 0;
+/* ── Card genérico (vídeo e nuvem) ── */
+.ctx-card {
+    width: 100%;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(31, 63, 43, 0.13);
     overflow: hidden;
-    border: 1px solid rgba(31, 63, 43, 0.14);
-    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(31, 63, 43, 0.11);
+}
+
+/* Área de texto dentro do card (título + parágrafos) */
+.ctx-card__body {
+    padding: 36px 40px 28px;
+}
+
+.ctx-card__body .ctx-section-title {
+    margin-bottom: 20px;
+}
+
+.ctx-card__body .ctx-text {
+    max-width: 100%;
+}
+
+/* Barra de rótulo no topo do card */
+.ctx-card__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--verde-escuro);
+    background: rgba(233, 185, 73, 0.18);
+    border-bottom: 1px solid rgba(233, 185, 73, 0.35);
+}
+
+/* Divisor interno entre o texto e a nuvem */
+.ctx-card__divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--verde-escuro);
+    background: rgba(233, 185, 73, 0.18);
+    border-top: 1px solid rgba(233, 185, 73, 0.35);
+    border-bottom: 1px solid rgba(233, 185, 73, 0.35);
+}
+
+.ctx-card__icon {
+    font-size: 14px;
+    opacity: 0.75;
+}
+
+/* ── Card de vídeo ── */
+.ctx-card--video {
     background: #ffffff;
-    box-shadow: 0 10px 24px rgba(31, 63, 43, 0.14);
+}
+
+.ctx-video-wrapper {
+    width: 100%;
     aspect-ratio: 16 / 9;
+    background: #000;
 }
 
 .ctx-video {
@@ -59,23 +120,21 @@
     border: none;
 }
 
-/* Nuvem de palavras */
-.ctx-wordcloud-wrapper {
-    width: min(100%, 920px);
-    margin: 28px auto 0;
-    padding: 24px;
+/* ── Card da nuvem de palavras ── */
+.ctx-card--wordcloud {
     background:
-        linear-gradient(135deg, rgba(46, 94, 62, 0.08), rgba(233, 185, 73, 0.18)),
+        linear-gradient(135deg, rgba(46, 94, 62, 0.06), rgba(233, 185, 73, 0.14)),
         #ffffff;
-    border: 1px solid rgba(31, 63, 43, 0.14);
-    border-radius: 16px;
-    box-shadow: 0 8px 22px rgba(31, 63, 43, 0.10);
+}
+
+.ctx-wordcloud-wrapper {
+    padding: 28px 28px 24px;
 }
 
 .ctx-wordcloud-title {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    font-size: 22px;
+    font-size: 20px;
     color: var(--verde-escuro);
     text-align: center;
 }
@@ -148,6 +207,18 @@
     font-weight: 800;
 }
 
+.ctx-wordcloud-error {
+    margin-top: 8px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: rgba(200, 50, 50, 0.08);
+    border: 1px solid rgba(200, 50, 50, 0.25);
+    color: #9b2525;
+    font-size: 13px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    text-align: center;
+}
+
 .ctx-user-tags {
     display: flex;
     flex-wrap: wrap;
@@ -191,13 +262,14 @@
     margin: 0 auto;
     border: 1px solid rgba(31, 63, 43, 0.10);
     border-radius: 14px;
-    background: #FFFDF6;
+    background: #DBEEFF;
     box-shadow: inset 0 0 18px rgba(31, 63, 43, 0.06);
 }
 
+/* ── Responsivo ── */
 @media (max-width: 900px) {
     .ctx-page {
-        gap: 24px;
+        gap: 48px;
         padding: 22px;
     }
 
@@ -208,11 +280,15 @@
     .ctx-text {
         text-align: left;
     }
+
+    .ctx-card__body {
+        padding: 28px 24px 20px;
+    }
 }
 
 @media (max-width: 600px) {
     .ctx-page {
-        width: min(94%, 1400px);
+        gap: 36px;
         padding: 18px;
         margin: 30px auto;
     }
@@ -226,13 +302,20 @@
         line-height: 1.65;
     }
 
-    .ctx-wordcloud-wrapper {
-        padding: 18px;
+    .ctx-card {
         border-radius: 12px;
     }
 
+    .ctx-card__body {
+        padding: 22px 18px 16px;
+    }
+
+    .ctx-wordcloud-wrapper {
+        padding: 18px;
+    }
+
     .ctx-wordcloud-title {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .ctx-wordcloud-input-row {
@@ -245,6 +328,6 @@
     }
 
     #wordCloudCanvas {
-        height: 320px;
+        height: 300px;
     }
 }
