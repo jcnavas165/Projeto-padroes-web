@@ -66,6 +66,7 @@
     color: var(--texto-principal);
     background: #ffffff;
     outline: none;
+    box-sizing: border-box;
     transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -501,11 +502,21 @@
         flex-direction: column;
     }
 
+    .search-box {
+        min-width: 0;
+        width: 100%;
+    }
+
     .dictionary-stats {
         min-width: 0;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
+    }
+
+    /* Uma página por vez no mobile: oculta a página direita */
+    .right-page {
+        display: none;
     }
 
     .book-stage {
@@ -516,6 +527,7 @@
         width: 100%;
         flex-direction: column;
         min-height: auto;
+        overflow: hidden;
     }
 
     .book::before,
@@ -543,21 +555,27 @@
         display: none;
     }
 
-    .book.flipping-next .right-page,
-    .book.flipping-prev .left-page {
-        animation: pageFade 0.35s ease;
+    /* No mobile só a left-page é visível — anima ela em ambas as direções */
+    .book.flipping-next .left-page {
+        animation: mobileSlideNext 0.58s ease-in-out;
     }
 
-    @keyframes pageFade {
-        0% {
-            opacity: 0.4;
-            transform: translateY(12px);
-        }
+    .book.flipping-prev .left-page {
+        animation: mobileSlidePrev 0.58s ease-in-out;
+    }
 
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    @keyframes mobileSlideNext {
+        0%   { transform: translateX(0);     opacity: 1;   }
+        45%  { transform: translateX(-110%); opacity: 0;   }
+        50%  { transform: translateX(110%);  opacity: 0;   }
+        100% { transform: translateX(0);     opacity: 1;   }
+    }
+
+    @keyframes mobileSlidePrev {
+        0%   { transform: translateX(0);     opacity: 1;   }
+        45%  { transform: translateX(110%);  opacity: 0;   }
+        50%  { transform: translateX(-110%); opacity: 0;   }
+        100% { transform: translateX(0);     opacity: 1;   }
     }
 }
 
@@ -579,4 +597,165 @@
     .page-header h3 {
         font-size: 21px;
     }
+}
+
+/* ── Float controls (dicionário) ── */
+.dict-float-controls {
+    display: none;
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.dict-float-controls--visible {
+    display: flex;
+    animation: dictFloatIn 0.25s ease;
+}
+
+@keyframes dictFloatIn {
+    from { opacity: 0; transform: translateY(-50%) translateX(14px); }
+    to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.dict-sidebar__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--verde-principal);
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(31, 63, 43, 0.30);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+}
+
+.dict-sidebar__toggle:hover {
+    background: var(--verde-escuro);
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(31, 63, 43, 0.36);
+}
+
+.dict-sidebar__toggle[aria-expanded="true"] {
+    background: var(--dourado-principal);
+    color: var(--verde-escuro);
+}
+
+.dict-sidebar__toggle svg {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.dict-sidebar {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    width: 220px;
+    background:
+        linear-gradient(135deg, rgba(46, 94, 62, 0.08), rgba(233, 185, 73, 0.18)),
+        #ffffff;
+    border: 1px solid rgba(31, 63, 43, 0.14);
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(31, 63, 43, 0.14);
+    transform-origin: top right;
+}
+
+.dict-float-controls--open .dict-sidebar {
+    display: flex;
+    animation: dictSidebarExpand 0.22s ease;
+}
+
+@keyframes dictSidebarExpand {
+    from { opacity: 0; transform: scale(0.92) translateY(-6px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.dict-sidebar__title {
+    margin: 0;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--verde-principal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+.dict-sidebar-search {
+    width: 100%;
+    padding: 9px 12px;
+    border: 2px solid rgba(31, 63, 43, 0.18);
+    border-radius: 999px;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: var(--texto-principal);
+    background: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dict-sidebar-search:focus {
+    border-color: var(--dourado-principal);
+    box-shadow: 0 0 0 3px rgba(233, 185, 73, 0.20);
+}
+
+.dict-sidebar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.dict-sidebar-nav button {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: var(--dourado-principal);
+    color: var(--verde-escuro);
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.dict-sidebar-nav button:hover {
+    background: var(--dourado-claro);
+    transform: scale(1.1);
+}
+
+.dict-sidebar-nav button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.dict-page-indicator {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--verde-escuro);
+    padding: 5px 4px;
+    background: var(--verde-claro);
+    border-radius: 999px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

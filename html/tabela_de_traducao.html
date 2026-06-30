@@ -21,7 +21,12 @@
 <body>
 
     <header>
-        <nav>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+            <span class="nav-hamburger__bar"></span>
+            <span class="nav-hamburger__bar"></span>
+            <span class="nav-hamburger__bar"></span>
+        </button>
+        <nav id="nav-menu">
             <a href="pagina_inicial.html">PÁGINA INICIAL</a>
             <a href="contextualizacao.html">CONTEXTUALIZAÇÃO</a>
             <a href="linha_do_tempo.html">LINHA DO TEMPO</a>
@@ -30,6 +35,7 @@
             <a href="impacto_no_vocabulario.html">IMPACTO NO VOCABULÁRIO</a>
             <a href="sobre.html">SOBRE</a>
         </nav>
+        <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
     </header>
 
     <section class="hero">
@@ -159,6 +165,44 @@
             <li>Thiago Honório</li>
         </ul>
     </footer>
+
+    <!-- Controles flutuantes: aparecem quando o painel de ferramentas sai da tela -->
+    <div id="dict-float-controls" class="dict-float-controls" aria-hidden="true">
+
+        <button type="button" id="dict-sidebar-toggle" class="dict-sidebar__toggle"
+            aria-label="Abrir controles" aria-expanded="false" aria-controls="dict-sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="5"  r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+                <line x1="5"  y1="5"  x2="9"  y2="5"/>
+                <line x1="15" y1="5"  x2="19" y2="5"/>
+                <line x1="5"  y1="12" x2="9"  y2="12"/>
+                <line x1="15" y1="12" x2="19" y2="12"/>
+                <line x1="5"  y1="19" x2="9"  y2="19"/>
+                <line x1="15" y1="19" x2="19" y2="19"/>
+            </svg>
+        </button>
+
+        <aside id="dict-sidebar" class="dict-sidebar" aria-label="Controles do dicionário">
+            <p class="dict-sidebar__title">Dicionário</p>
+
+            <input type="search" id="dictionarySearch-float" class="dict-sidebar-search"
+                placeholder="Buscar gíria..." autocomplete="off">
+
+            <div class="dict-sidebar-nav">
+                <button type="button" id="firstPage-float" aria-label="Primeira página">⟨⟨</button>
+                <button type="button" id="prevPage-float" aria-label="Página anterior">⟨</button>
+                <span id="pageIndicator-float" class="dict-page-indicator">1/1</span>
+                <button type="button" id="nextPage-float" aria-label="Próxima página">⟩</button>
+                <button type="button" id="lastPage-float" aria-label="Última página">⟩⟩</button>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="../js/nav.js"></script>
 
 </body>
 

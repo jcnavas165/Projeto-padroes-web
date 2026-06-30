@@ -24,6 +24,14 @@ const faixaAtual = document.getElementById("currentRange");
 
 const campoBusca = document.getElementById("dictionarySearch");
 
+// Elementos do menu flutuante
+const campoFlutuante         = document.getElementById("dictionarySearch-float");
+const indicadorPaginaFloat   = document.getElementById("pageIndicator-float");
+const botaoPrimeiraPaginaFloat = document.getElementById("firstPage-float");
+const botaoUltimaPaginaFloat   = document.getElementById("lastPage-float");
+const botaoPrevFloat           = document.getElementById("prevPage-float");
+const botaoNextFloat           = document.getElementById("nextPage-float");
+
 const itensPorLado = 4;
 const itensPorAbertura = itensPorLado * 2;
 
@@ -31,6 +39,16 @@ let termosCompletos = [];
 let termosFiltrados = [];
 let aberturaAtual = 0;
 let animandoTroca = false;
+
+// Detecta viewport mobile (igual ao breakpoint do CSS).
+function ehMobileDic() {
+    return window.matchMedia("(max-width: 800px)").matches;
+}
+
+// Retorna quantos itens cabem por "abertura" conforme viewport.
+function itensPorAberturaEfetivo() {
+    return ehMobileDic() ? itensPorLado : itensPorAbertura;
+}
 
 // Carrega o CSV, prepara os termos e inicia a renderização do livro.
 async function carregarDicionario() {
@@ -134,39 +152,48 @@ function limparValorCsv(valor) {
     return valor.trim().replace(/^"|"$/g, "");
 }
 
-// Renderiza as duas páginas visíveis e atualiza estado da navegação.
+// Renderiza as páginas visíveis e atualiza estado da navegação.
 function renderizarLivro() {
+    const mobile = ehMobileDic();
+    const efetivo = itensPorAberturaEfetivo();
     const totalAberturas = obterTotalAberturas();
 
     if (aberturaAtual > totalAberturas - 1) {
         aberturaAtual = Math.max(totalAberturas - 1, 0);
     }
 
-    const indiceInicial = aberturaAtual * itensPorAbertura;
-    const indiceFinal = indiceInicial + itensPorAbertura;
+    const indiceInicial = aberturaAtual * efetivo;
+    const indiceFinal = indiceInicial + efetivo;
 
     const itensVisiveis = termosFiltrados.slice(indiceInicial, indiceFinal);
-    const itensEsquerda = itensVisiveis.slice(0, itensPorLado);
-    const itensDireita = itensVisiveis.slice(itensPorLado, itensPorAbertura);
+    const itensEsquerda = mobile ? itensVisiveis : itensVisiveis.slice(0, itensPorLado);
+    const itensDireita  = mobile ? [] : itensVisiveis.slice(itensPorLado, itensPorAbertura);
 
-    const paginaEsquerda = aberturaAtual * 2 + 1;
-    const paginaDireita = paginaEsquerda + 1;
+    const paginaEsquerda = mobile ? aberturaAtual + 1 : aberturaAtual * 2 + 1;
+    const paginaDireita  = paginaEsquerda + 1;
 
     tituloPaginaEsquerda.textContent = obterTituloPagina(itensEsquerda, "Gírias");
-    tituloPaginaDireita.textContent = obterTituloPagina(itensDireita, "Significados");
+    tituloPaginaDireita.textContent  = obterTituloPagina(itensDireita, "Significados");
 
     conteudoPaginaEsquerda.innerHTML = renderizarEntradas(itensEsquerda);
-    conteudoPaginaDireita.innerHTML = renderizarEntradas(itensDireita);
+    conteudoPaginaDireita.innerHTML  = renderizarEntradas(itensDireita);
 
     numeroPaginaEsquerda.textContent = paginaEsquerda;
-    numeroPaginaDireita.textContent = paginaDireita;
+    numeroPaginaDireita.textContent  = paginaDireita;
 
     const inicioVisivel = termosFiltrados.length === 0 ? 0 : indiceInicial + 1;
-    const fimVisivel = Math.min(indiceFinal, termosFiltrados.length);
+    const fimVisivel    = Math.min(indiceFinal, termosFiltrados.length);
 
-    totalTermos.textContent = `${termosFiltrados.length} termo(s) encontrado(s)`;
-    faixaAtual.textContent = `${inicioVisivel} - ${fimVisivel} de ${termosFiltrados.length}`;
+    totalTermos.textContent    = `${termosFiltrados.length} termo(s) encontrado(s)`;
+    faixaAtual.textContent     = `${inicioVisivel} - ${fimVisivel} de ${termosFiltrados.length}`;
     indicadorPagina.textContent = `Página ${aberturaAtual + 1} de ${totalAberturas || 1}`;
+
+    if (indicadorPaginaFloat) {
+        indicadorPaginaFloat.textContent = `${aberturaAtual + 1}/${totalAberturas || 1}`;
+    }
+    if (campoFlutuante) {
+        campoFlutuante.value = campoBusca.value;
+    }
 
     atualizarBotoes();
 }
@@ -249,18 +276,23 @@ function atualizarBotoes() {
     const estaNoInicio = aberturaAtual === 0;
     const estaNoFim = aberturaAtual >= totalAberturas - 1 || totalAberturas === 0;
 
-    botaoPaginaAnteriorTopo.disabled = estaNoInicio || animandoTroca;
-    botaoPaginaAnteriorRodape.disabled = estaNoInicio || animandoTroca;
-    botaoPrimeiraPagina.disabled = estaNoInicio || animandoTroca;
+    botaoPaginaAnteriorTopo.disabled    = estaNoInicio || animandoTroca;
+    botaoPaginaAnteriorRodape.disabled  = estaNoInicio || animandoTroca;
+    botaoPrimeiraPagina.disabled        = estaNoInicio || animandoTroca;
 
-    botaoProximaPaginaTopo.disabled = estaNoFim || animandoTroca;
-    botaoProximaPaginaRodape.disabled = estaNoFim || animandoTroca;
-    botaoUltimaPagina.disabled = estaNoFim || animandoTroca;
+    botaoProximaPaginaTopo.disabled     = estaNoFim || animandoTroca;
+    botaoProximaPaginaRodape.disabled   = estaNoFim || animandoTroca;
+    botaoUltimaPagina.disabled          = estaNoFim || animandoTroca;
+
+    if (botaoPrimeiraPaginaFloat) botaoPrimeiraPaginaFloat.disabled = estaNoInicio || animandoTroca;
+    if (botaoPrevFloat)           botaoPrevFloat.disabled           = estaNoInicio || animandoTroca;
+    if (botaoNextFloat)           botaoNextFloat.disabled           = estaNoFim    || animandoTroca;
+    if (botaoUltimaPaginaFloat)   botaoUltimaPaginaFloat.disabled   = estaNoFim    || animandoTroca;
 }
 
-// Calcula quantas aberturas (duas páginas) existem na listagem atual.
+// Calcula quantas aberturas existem na listagem atual (considera viewport).
 function obterTotalAberturas() {
-    return Math.ceil(termosFiltrados.length / itensPorAbertura);
+    return Math.ceil(termosFiltrados.length / itensPorAberturaEfetivo());
 }
 
 // Avança uma abertura do livro quando possível.
@@ -379,5 +411,88 @@ botaoUltimaPagina.addEventListener("click", irParaUltimaPagina);
 
 campoBusca.addEventListener("input", filtrarDicionario);
 document.addEventListener("keydown", lidarComAtalhosTeclado);
+
+// ── Swipe para navegar páginas ────────────────────────────────────────────────
+let swipeStartX = null;
+let swipeStartY = null;
+const SWIPE_MIN_X = 50;   // distância mínima horizontal para contar como swipe
+const SWIPE_MAX_Y = 80;   // desvio vertical máximo (evita confundir com scroll)
+
+livro.addEventListener("touchstart", (e) => {
+    const t = e.changedTouches[0];
+    swipeStartX = t.clientX;
+    swipeStartY = t.clientY;
+}, { passive: true });
+
+livro.addEventListener("touchend", (e) => {
+    if (swipeStartX === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - swipeStartX;
+    const dy = Math.abs(t.clientY - swipeStartY);
+    swipeStartX = null;
+    swipeStartY = null;
+
+    if (Math.abs(dx) < SWIPE_MIN_X || dy > SWIPE_MAX_Y) return;
+    if (dx < 0) irParaProximaPagina();
+    else        irParaPaginaAnterior();
+}, { passive: true });
+
+// Re-renderiza ao redimensionar para ajustar modo mobile/desktop.
+window.addEventListener("resize", () => renderizarLivro());
+
+// ── Menu flutuante ────────────────────────────────────────────────────────────
+const dictFloatWrapper = document.getElementById("dict-float-controls");
+const dictToggleBtn    = document.getElementById("dict-sidebar-toggle");
+
+function abrirDictSidebar(aberto) {
+    if (!dictFloatWrapper || !dictToggleBtn) return;
+    dictFloatWrapper.classList.toggle("dict-float-controls--open", aberto);
+    dictToggleBtn.setAttribute("aria-expanded", aberto ? "true" : "false");
+    dictToggleBtn.setAttribute("aria-label", aberto ? "Fechar controles" : "Abrir controles");
+}
+
+if (dictToggleBtn) {
+    dictToggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const aberto = dictFloatWrapper.classList.contains("dict-float-controls--open");
+        abrirDictSidebar(!aberto);
+    });
+}
+
+// Fecha ao clicar fora do wrapper
+document.addEventListener("click", (e) => {
+    if (dictFloatWrapper && !dictFloatWrapper.contains(e.target)) {
+        abrirDictSidebar(false);
+    }
+});
+
+// Busca flutuante — sincroniza com o campo principal
+if (campoFlutuante) {
+    campoFlutuante.addEventListener("input", () => {
+        campoBusca.value = campoFlutuante.value;
+        filtrarDicionario();
+    });
+}
+
+// Navegação flutuante
+if (botaoPrimeiraPaginaFloat) botaoPrimeiraPaginaFloat.addEventListener("click", irParaPrimeiraPagina);
+if (botaoPrevFloat)           botaoPrevFloat.addEventListener("click", irParaPaginaAnterior);
+if (botaoNextFloat)           botaoNextFloat.addEventListener("click", irParaProximaPagina);
+if (botaoUltimaPaginaFloat)   botaoUltimaPaginaFloat.addEventListener("click", irParaUltimaPagina);
+
+// Mostra/oculta o wrapper quando .dictionary-tools entra ou sai da tela
+const dictToolsEl = document.querySelector(".dictionary-tools");
+if (dictToolsEl && dictFloatWrapper) {
+    const dictObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const visivel = entry.isIntersecting;
+            dictFloatWrapper.classList.toggle("dict-float-controls--visible", !visivel);
+            dictFloatWrapper.setAttribute("aria-hidden", visivel ? "true" : "false");
+            if (visivel) abrirDictSidebar(false);
+        });
+    }, { threshold: 0 });
+
+    dictObserver.observe(dictToolsEl);
+}
 
 carregarDicionario();

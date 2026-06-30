@@ -17,8 +17,12 @@
 <body>
 
     <header>
-
-        <nav>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+            <span class="nav-hamburger__bar"></span>
+            <span class="nav-hamburger__bar"></span>
+            <span class="nav-hamburger__bar"></span>
+        </button>
+        <nav id="nav-menu">
 
             <a href="pagina_inicial.html">
                 PÁGINA INICIAL
@@ -49,7 +53,7 @@
             </a>
 
         </nav>
-
+        <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
     </header>
 
     <section class="hero">
@@ -160,6 +164,8 @@
             <li>Thiago Honório</li>
         </ul>
     </footer>
+
+    <script src="../js/nav.js"></script>
 
 </body>
 

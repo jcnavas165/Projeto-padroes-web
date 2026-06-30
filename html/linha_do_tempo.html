@@ -21,7 +21,12 @@
 <body>
 
     <header>
-        <nav>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+            <span class="nav-hamburger__bar"></span>
+            <span class="nav-hamburger__bar"></span>
+            <span class="nav-hamburger__bar"></span>
+        </button>
+        <nav id="nav-menu">
             <a href="pagina_inicial.html">PÁGINA INICIAL</a>
             <a href="contextualizacao.html">CONTEXTUALIZAÇÃO</a>
             <a href="linha_do_tempo.html">LINHA DO TEMPO</a>
@@ -30,6 +35,7 @@
             <a href="impacto_no_vocabulario.html">IMPACTO NO VOCABULÁRIO</a>
             <a href="sobre.html">SOBRE</a>
         </nav>
+        <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
     </header>
 
     <section class="hero">
@@ -50,24 +56,45 @@
 
         <section class="timeline-controls" aria-label="Controles da linha do tempo">
             <div class="zoom-panel">
-                <button type="button" id="zoomOut">− Zoom</button>
-
                 <div class="zoom-status">
                     <span id="zoomLabel">Visão geral</span>
-                    <div class="zoom-bar">
-                        <span id="zoomProgress"></span>
+                    <div class="zoom-bar-row">
+                        <button type="button" id="zoomOut" class="zoom-step-btn" aria-label="Diminuir zoom">−</button>
+                        <div class="zoom-bar">
+                            <span id="zoomProgress"></span>
+                        </div>
+                        <button type="button" id="zoomIn" class="zoom-step-btn" aria-label="Aumentar zoom">+</button>
+                    </div>
+                    <button type="button" id="resetTimeline" class="zoom-reset-btn">Resetar</button>
+                </div>
+            </div>
+            <!-- Filtro de Períodos -->
+            <div class="period-panel">
+                <div class="period-dropdown" id="periodDropdown">
+                    <button type="button" class="period-dropdown__trigger" id="periodTrigger" aria-haspopup="listbox" aria-expanded="false">
+                        <span id="periodTriggerLabel">Todas as gerações</span>
+                        <span class="period-dropdown__arrow" aria-hidden="true"></span>
+                    </button>
+                    <div class="period-dropdown__menu" id="periodMenu" role="listbox" aria-multiselectable="true" aria-label="Filtrar por geração">
+                        <label class="period-dropdown__item period-dropdown__item--all">
+                            <input type="checkbox" id="periodAll" value="all" checked>
+                            <span>Selecionar todas</span>
+                        </label>
+                        <hr class="period-dropdown__divider">
+                        <label class="period-dropdown__item">
+                            <input type="checkbox" value="x">
+                            <span>Geração X <em>(1965 – 1980)</em></span>
+                        </label>
+                        <label class="period-dropdown__item">
+                            <input type="checkbox" value="millennials">
+                            <span>Millennials <em>(1981 – 1996)</em></span>
+                        </label>
+                        <label class="period-dropdown__item">
+                            <input type="checkbox" value="z">
+                            <span>Geração Z <em>(1997 – 2012)</em></span>
+                        </label>
                     </div>
                 </div>
-
-                <button type="button" id="zoomIn">+ Zoom</button>
-                <button type="button" id="resetTimeline">Resetar</button>
-            </div>
-            <!-- Painel de Períodos Atualizado -->
-            <div class="period-panel">
-                <button type="button" class="period-btn active" data-period="all">Todos</button>
-                <button type="button" class="period-btn" data-period="x">Geração X (1965 - 1980)</button>
-                <button type="button" class="period-btn" data-period="millennials">Millennials (1981 - 1996)</button>
-                <button type="button" class="period-btn" data-period="z">Geração Z (1997 - 2012)</button>
             </div>
         </section>
 
@@ -725,6 +752,78 @@
             <li>Thiago Honório</li>
         </ul>
     </footer>
+
+    <!-- Controles flutuantes: aparecem quando o painel principal sai da tela -->
+    <div id="timeline-float-controls" class="timeline-float-controls" aria-hidden="true">
+
+        <!-- Botão de toggle -->
+        <button type="button" id="timeline-sidebar-toggle" class="timeline-sidebar__toggle"
+            aria-label="Abrir controles" aria-expanded="false" aria-controls="timeline-sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="5"  r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+                <line x1="5"  y1="5"  x2="9"  y2="5"/>
+                <line x1="15" y1="5"  x2="19" y2="5"/>
+                <line x1="5"  y1="12" x2="9"  y2="12"/>
+                <line x1="15" y1="12" x2="19" y2="12"/>
+                <line x1="5"  y1="19" x2="9"  y2="19"/>
+                <line x1="15" y1="19" x2="19" y2="19"/>
+            </svg>
+        </button>
+
+        <!-- Painel expansível -->
+        <aside id="timeline-sidebar" class="timeline-sidebar" aria-label="Controles da linha do tempo">
+            <p class="timeline-sidebar__title">Controles</p>
+
+            <div class="zoom-status">
+                <span id="zoomLabel-float">Visão geral</span>
+                <div class="zoom-bar-row">
+                    <button type="button" id="zoomOut-float" class="zoom-step-btn" aria-label="Diminuir zoom">−</button>
+                    <div class="zoom-bar">
+                        <span id="zoomProgress-float"></span>
+                    </div>
+                    <button type="button" id="zoomIn-float" class="zoom-step-btn" aria-label="Aumentar zoom">+</button>
+                </div>
+            </div>
+
+            <div class="sidebar-btns">
+                <button type="button" id="resetTimeline-float">↺ Reset</button>
+            </div>
+
+            <div class="period-dropdown" id="periodDropdown-float">
+                <button type="button" class="period-dropdown__trigger" id="periodTrigger-float"
+                    aria-haspopup="listbox" aria-expanded="false">
+                    <span id="periodTriggerLabel-float">Todas as gerações</span>
+                    <span class="period-dropdown__arrow" aria-hidden="true"></span>
+                </button>
+                <div class="period-dropdown__menu" id="periodMenu-float" role="listbox"
+                    aria-multiselectable="true" aria-label="Filtrar por geração">
+                    <label class="period-dropdown__item period-dropdown__item--all">
+                        <input type="checkbox" id="periodAll-float" value="all" checked>
+                        <span>Selecionar todas</span>
+                    </label>
+                    <hr class="period-dropdown__divider">
+                    <label class="period-dropdown__item">
+                        <input type="checkbox" value="x">
+                        <span>Geração X</span>
+                    </label>
+                    <label class="period-dropdown__item">
+                        <input type="checkbox" value="millennials">
+                        <span>Millennials</span>
+                    </label>
+                    <label class="period-dropdown__item">
+                        <input type="checkbox" value="z">
+                            <span>Geração Z</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="../js/nav.js"></script>
 
 </body>
 

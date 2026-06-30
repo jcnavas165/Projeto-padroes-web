@@ -23,10 +23,20 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
         return;
     }
 
-    canvas.setAttribute("width", "860");
-    canvas.setAttribute("height", "420");
-
     const contexto = canvas.getContext("2d");
+
+    // Ajusta a resolução interna do canvas ao tamanho real exibido pelo CSS,
+    // evitando distorção (achatamento) em telas menores.
+    function ajustarTamanhoCanvas() {
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        if (w > 0 && h > 0 && (canvas.width !== w || canvas.height !== h)) {
+            canvas.width = w;
+            canvas.height = h;
+        }
+    }
+
+    ajustarTamanhoCanvas();
     const pesosUsuario = new Map();
     const cacheEstetica = new Map();
 
@@ -358,6 +368,12 @@ const CORES = ["#2E5E3E", "#1F3F2B", "#E9B949", "#4A8C5C", "#C49A28", "#3D7A52",
     if (campoPalavra) {
         campoPalavra.addEventListener("keydown", lidarComEnterNoCampo);
     }
+
+    const observadorTamanho = new ResizeObserver(() => {
+        ajustarTamanhoCanvas();
+        desenharNuvem();
+    });
+    observadorTamanho.observe(canvas);
 
     desenharNuvem();
 })();
