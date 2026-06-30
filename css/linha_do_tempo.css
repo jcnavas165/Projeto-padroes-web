@@ -764,4 +764,14 @@
     .timeline-card h2 {
         font-size: 20px;
     }
+
+    .timeline-img img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 12px;
+}
+
+
+
 }
