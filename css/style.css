@@ -260,7 +260,7 @@ footer {
     background: linear-gradient(135deg, var(--verde-principal), var(--verde-escuro));
     color: var(--texto-claro);
     padding: 24px;
-    text-align: center;
+    text-align: left;
     border-top: 4px solid var(--dourado-principal);
     background:
         linear-gradient(
@@ -270,7 +270,6 @@ footer {
         url("padrao-comunicacao.svg"),
         linear-gradient(135deg, var(--verde-escuro), var(--verde-principal));
     
-    /* Mude para o novo tamanho do SVG aqui */
     background-size: auto, 400px 238px, auto; 
     
     background-repeat: repeat;
@@ -289,7 +288,7 @@ footer p {
 footer ul {
     list-style: none;
     margin: 15px auto;
-    width: fit-content;
+    width: left;
     text-align: left;
 }
 
